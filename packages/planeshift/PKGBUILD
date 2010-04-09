@@ -5,7 +5,7 @@
 # Maintainer: M Rawash <mrawash@gmail.com>
 
 pkgname=planeshift
-pkgver=0.5.2.1
+pkgver=0.5.3
 pkgrel=1
 pkgdesc="Open source and cross-platform 3D Fantasy MMORPG"
 arch=('i686' 'x86_64')
@@ -68,3 +68,8 @@ build() {
   # Install the PlaneShift Content License
   install -D -m644 $srcdir/license.txt $pkgdir/usr/share/licenses/$pkgname/LICENSE
 }
+md5sums=('efd8452f27489013ef6c8fa7cd3d8d2f'
+         '5be27f6e51c8edff591aa1fdc668b7e9'
+         'e75381f677b5d2ae331d0e4e742ee21a'
+         'dbac9cf5bfb63463bcb2b5ea09b00586'
+         '9f9b8d4033fd1b2c7ef33c5e04207abb')

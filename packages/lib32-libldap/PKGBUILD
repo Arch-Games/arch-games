@@ -2,16 +2,16 @@
 
 pkgname=lib32-libldap
 pkgver=2.4.21
-pkgrel32=1
-pkgrel=1
+pkgrel32=2
+pkgrel=2
 pkgdesc="LDAP client libraries"
 arch=('x86_64')
 url="http://www.openldap.org/"
 depends=('lib32-libsasl' 'lib32-openssl')
 license=('custom')
 groups=lib32
-source=(ftp://ftp.archlinux.org/core/os/i686/${pkgname/lib32-/}-${pkgver}-${pkgrel32}-i686.pkg.tar.gz)
-md5sums=('d7280fe1a84678134fbcb97f7a8c0d1c')
+source=(ftp://ftp.archlinux.org/core/os/i686/${pkgname/lib32-/}-${pkgver}-${pkgrel32}-i686.pkg.tar.xz)
+md5sums=('cbe09165cb98a12b501539cbb0f922e4')
 
 build() {
   mkdir -p ${startdir}/pkg/opt/lib32/usr/lib

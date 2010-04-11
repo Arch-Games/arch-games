@@ -1,29 +1,27 @@
-# Contributor: KillaB <xGenoBlast@gmail.com>
-# Contributor: Nathan Jones <nathanj@insightbb.com>
-
 pkgname=stone-soup
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Community maintained variant of Linley's Dungeon Crawl"
 arch=('i686' 'x86_64' 'ppc')
-url="http://crawl-ref.sourceforge.net/"
-depends=(lua python libpng libx11 ncurses sdl_image)
-makedepends=(gcc bison flex)
-conflicts=(crawl)
+url="http://crawl.develz.org/"
+depends=('lua' 'ncurses') 
+makedepends=('gcc' 'bison' 'flex')
+conflicts=('crawl')
 license=('custom')
 install=stone-soup.install
-source=(http://downloads.sourceforge.net/sourceforge/crawl-ref/stone_soup-$pkgver-nodeps.tar.bz2)
+source=("http://downloads.sourceforge.net/sourceforge/crawl-ref/stone_soup-$pkgver-nodeps.tar.bz2")
 md5sums=('866e315470a592572e7ce8a7214c7615')
 
-
 build() {
-        cd $srcdir/stone_soup-$pkgver/source
-	make || return 1
-	make DESTDIR="$pkgdir" \
-		DATADIR="$pkgdir/usr/share/stone-soup/data" \
-		SAVEDIR="$pkgdir/usr/share/stone-soup/saves" \
-		install || return 1
+    cd $srcdir/stone_soup-$pkgver/source
+    sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile || return 1
+    sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:games/' makefile || return 1
 
-	install -D -m644 ../licence.txt "$pkgdir/usr/share/licenses/stone-soup/license.txt" || return 1
+    make DESTDIR=$pkgdir \
+        SAVEDIR="/usr/share/stone-soup/save" \
+        DATADIR="/usr/share/stone-soup/data" \
+        USE_UNICODE=y \
+        install || return 1
+
+    install -D -m644 ../licence.txt "$pkgdir/usr/share/licenses/stone-soup/license.txt" || return 1
 }
-

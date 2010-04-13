@@ -11,6 +11,8 @@ fi
 staged_files=($(git diff --cached --name-only))
 repo_root="$(git rev-parse --git-dir)/.."
 exit_code=0
+# Having GIT_DIR set breaks some things. I don't really understand why it's set or if I will break things by unsetting it...
+unset GIT_DIR
 
 for file in ${staged_files[@]}; do
     [[ $(basename "$file") != 'PKGBUILD' ]] && continue
@@ -22,8 +24,8 @@ for file in ${staged_files[@]}; do
 
     pushd "$repo_root/$(dirname "$file")" >/dev/null
 
-    sources=$(source PKGBUILD; echo ${source[@]} "$install")
-    for source_file in ${sources[@]}; do
+    sources=$(source PKGBUILD; echo ${source[@]} $install)
+    for source_file in "${sources[@]}"; do
         if echo $source_file | grep -q '://'; then
             # Source is downloadable, we don't want it committed
             continue

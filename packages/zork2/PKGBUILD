@@ -11,7 +11,7 @@ depends=(jzip)
 source=(http://www.csd.uwo.ca/Infocom/Download/$pkgname.zip LICENSE)
 md5sums=('ab521209656948516351996263a8ad34' 'e1d314b3b784734c1a365a04ffff96c4')
 arch=('any')
-license="custom"
+license=('custom')
 
 build() {
   cd $srcdir

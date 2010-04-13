@@ -1,15 +1,14 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 pkgname=shedskin
-pkgver=0.3
-pkgrel=2
+pkgver=0.4
+pkgrel=1
 pkgdesc="A Python to C++ compiler"
 arch=('x86_64' 'i686')
 url="http://code.google.com/p/shedskin/"
 license=('GPL2')
 depends=('pcre' 'gc' 'python')
 conflicts=('shedskin-svn')
-md5sums=('232885f019fda79a534c251ddd7e4c42')
-source=('http://shedskin.googlecode.com/files/shedskin-0.3-1.tgz')
+source=(http://shedskin.googlecode.com/files/shedskin-$pkgver.tgz)
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/$pkgname"
@@ -28,3 +27,4 @@ build() {
   install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 # vim:set ts=2 sw=2 et:
+md5sums=('bd41092129b30ae23302b63a9910d884')

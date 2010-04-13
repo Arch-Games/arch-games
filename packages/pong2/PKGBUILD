@@ -3,7 +3,7 @@
 
 pkgname=pong2
 pkgver=0.1.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Networked, 3D clone of pong"
 url="http://pong2.berlios.de/"
 arch=('i686' 'x86_64')
@@ -28,3 +28,5 @@ package() {
 	install -Dm644 ${srcdir}/pong2.desktop \
 		${pkgdir}/usr/share/applications/Pong2.desktop
 }
+
+

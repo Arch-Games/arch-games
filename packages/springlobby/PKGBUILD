@@ -1,8 +1,8 @@
 # Maintainer: DuGi <dugi@irc.pl>
 
 pkgname=springlobby
-pkgver=0.63
-pkgrel=3
+pkgver=0.68
+pkgrel=1
 pkgdesc="A free cross-platform lobby client for the Spring RTS project."
 arch=('i686' 'x86_64')
 url="http://springlobby.info/"
@@ -28,6 +28,6 @@ build() {
   install -m755 -d -p $startdir/pkg/usr/share/pixmaps
   install -m644 $startdir/src/springlobby.png $startdir/pkg/usr/share/pixmaps
 }
-md5sums=('4b31aa82d98582f63f7120f986dac407'
+md5sums=('77acef23c98de760cd933415a0ae3917'
          '45f8b59d033931d02e734fe3bd7777dd'
          '1f388187539aeb0358b51995e26ed890')

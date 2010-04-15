@@ -1,34 +1,31 @@
 # Contributor: Nick B <Shirakawasuna at gmail _dot_ com>
-
 pkgname=viruskiller
-pkgver=1.0.1
-pkgrel=7
+pkgver=1.03
+pkgrel=1
 pkgdesc="Shoot 'em up. An arcade game that relies on quick reflexes, luck and your file system..."
-url="http://www.parallelrealities.co.uk/virusKiller.php"
 arch=('i686' 'x86_64')
+url="http://www.parallelrealities.co.uk/virusKiller.php"
 license=('GPL')
-depends=('sdl_image' 'sdl_mixer' 'sdl_ttf')
+depends=('sdl_image' 'sdl_mixer' 'sdl_net' 'sdl_ttf')
 makedepends=('gcc' 'make')
-source=(http://ftp.belnet.be/mirror/rsync.gentoo.org/gentoo/distfiles/viruskiller-1.0-1.tar.gz
-        viruskiller.png)
-    
-md5sums=('de7c78b3abdb4ff488943d78a94f5bb1' 
-         '8ed8b12b1a6c9640a1969f627d206ac8')
+source=(http://www.parallelrealities.co.uk/download/viruskiller/viruskiller-$pkgver-1.tar.gz)
 
 build() {
-  
-  #Patch, build and install the package
-  cd $srcdir/$pkgname-1.0
-  sed -i -e "s/-g games/-g root/g" makefile
-  sed -i -e "80,85d" makefile
-  sed -i -e "84,89d" makefile
-  make DATADIR=/usr/share/viruskiller/ || return 1
-  make DESTDIR=$pkgdir BINDIR=$pkgdir/usr/bin/ DATADIR=$pkgdir/usr/share/viruskiller/ install || return 1
-  
-  #Install the .desktop and icon files
-  install -D -m 644 $srcdir/viruskiller.png $pkgdir/usr/share/pixmaps/viruskiller.png
-  install -D -m 644 $srcdir/$pkgname-1.0/icons/viruskiller.desktop $pkgdir/usr/share/applications/viruskiller.desktop
-  
-}
 
-# vim:set ts=2 sw=2 et:
+cd $startdir/src/$pkgname-$pkgver
+
+# fix their method of installing files
+sed -i s,BINDIR\ =\ \$\(PREFIX\)/games/,BINDIR\ =\ \$\(PREFIX\)/bin/,g makefile
+sed -i s,DATADIR\ =\ \$\(PREFIX\)/share/games/\$\(PROG\)/,DATADIR\ =\ \$\(PREFIX\)/share/\$\(PROG\)/,g makefile
+sed -i s,-g\ games,-g\ root,g makefile
+
+# compile and install
+make || return 1
+make DESTDIR=$pkgdir install || return 1
+
+#fix their perms
+chmod 755 $pkgdir/usr/bin/viruskiller
+chmod 644 $pkgdir/usr/share/doc/viruskiller/*
+
+}
+md5sums=('ac74f8a49d249a87e3e77cadd9aa6fa9')

@@ -1,3 +1,14 @@
+2010-04-14 [vEX] <niechift.dot.vex.at.gmail.dot.com>
+
+	* 0.064-1 :
+	New upstream release.
+
+2010-03-29 [vEX] <niechift.dot.vex.at.gmail.dot.com>
+
+	* 0.063-2 :
+	New snesreader (snesreader_20100329.tar.bz2) that fixes libjma on 64-bit
+	systems.
+	
 2010-03-28 [vEX] <niechift.dot.vex.at.gmail.dot.com>
 
 	* 0.063-1 :

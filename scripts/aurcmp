@@ -43,11 +43,9 @@ get_pkgver_from_aur () {
 
     local url="http://aur.archlinux.org/packages/$pkgname/$pkgname/PKGBUILD"
 
-    local PKGBUILD=$(wget -q -O - "$url" | grep -E '^(pkgver|pkgrel)=')
+    local PKGBUILD=$(wget -q -O - "$url" | grep -E '^(pkgver=|pkgrel=|_)')
     if [ -z "$PKGBUILD" ]; then
-        if [[ "$VERBOSE" == "true" ]]; then
-                echo -e "${RED}not found in AUR${NC}"
-        fi
+        echo NOTFOUND
         return 0
     fi
 
@@ -73,13 +71,19 @@ aurcmp () {
     aurver="$(get_pkgver_from_aur $pkgname)" || true
     repover="$(get_pkgver_from_pacman $pkgname)" || true
 
-    result=$(vercmp $repover $aurver) || true
+    if [[ "$aurver" = "NOTFOUND" ]]; then
+        if [[ "$VERBOSE" == "true" ]]; then
+            echo -e "$pkgname: ${YELLOW}not found in AUR${NC}"
+        fi
+    else
+        result=$(vercmp $repover $aurver) || true
 
-    case $result in
-        '-1')   echo -e "$pkgname: ${RED}$repover${NC} => ${GREEN}$aurver${NC}"   ;;
-         '0')   [ "$VERBOSE" = 'true' ] && echo "$pkgname: up to date" ;;
-         '1')   [ "$VERBOSE" = 'true' ] && echo -e "$pkgname: (${RED}repo=$repover ${NC}aur=$aurver)" ;;
-    esac
+        case $result in
+            '-1')   echo -e "$pkgname: ${RED}repo=$repover${NC} => ${GREEN}aur=$aurver${NC}"   ;;
+             '0')   [ "$VERBOSE" = 'true' ] && echo "$pkgname: up to date" ;;
+             '1')   [ "$VERBOSE" = 'true' ] && echo -e "$pkgname: (${GREEN}repo=$repover ${NC}aur=$aurver)" ;;
+        esac
+    fi
 }
 
 # Safety options:
@@ -140,15 +144,21 @@ done
 if [ "$COLOR" = 'true' ]; then
     RED='\e[1;31m'
     GREEN='\e[1;32m'
+    YELLOW='\e[1;33m'
     NC='\e[0m'
 else
     RED=''
     GREEN=''
+    YELLOW=''
     NC=''
 fi
 
 # [arch-games] ftw!
 REPO=${REPO:-"arch-games"}
+
+if [[ "$VERBOSE" == "true" ]]; then
+    echo -e "${GREEN}==> ${NC}Searching for new version on AUR"
+fi
 
 # Main loop
 for pkg in $(pacman -Slq $REPO); do 

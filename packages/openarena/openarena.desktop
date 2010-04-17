@@ -1,8 +1,7 @@
 [Desktop Entry]
-Type=Application
 Name=OpenArena
-Comment=Free stand-alone game based on the Q3A source release. 
-Icon=/usr/share/pixmaps/openarena.png
 Exec=openarena
-Terminal=false
+Icon=openarena
+Type=Application
+Comment=A Quake3-based FPS Game
 Categories=Game;ActionGame;

@@ -2,7 +2,7 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=spring
-pkgver=0.81.2
+pkgver=0.81.2.1
 pkgrel=1
 pkgdesc='A free 3D real-time-strategy (RTS) game engine'
 arch=('i686' 'x86_64')
@@ -28,3 +28,4 @@ build() {
     install -d $pkgdir/etc/spring
     echo '$HOME/.spring' > $pkgdir/etc/spring/datadir
 }
+md5sums=('9ec91efdbcb6ee1cfda385958f2b6644')

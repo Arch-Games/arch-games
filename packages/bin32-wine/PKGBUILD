@@ -4,8 +4,8 @@
 
 pkgname=bin32-wine
 _pkgname32=wine
-pkgver=1.1.42
-pkgrel=2
+pkgver=1.1.43
+pkgrel=1
 _pkgrel32=1
 pkgdesc="Windows API implementation and interpreter, enabling the use of Windows apps in other OSes"
 arch=('x86_64')
@@ -57,3 +57,4 @@ build() {
 	install -Dm755 "$srcdir"/wine.sh "$pkgdir"/etc/profile.d/wine.sh || return 1
 }
 md5sums=('142a278dbcd976d932b913fb1d90b454')
+md5sums=('16379bbff1292f3349526db8ecb79769')

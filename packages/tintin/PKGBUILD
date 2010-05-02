@@ -2,7 +2,7 @@
 # Contributor: rabyte <rabyte__gmail>
 
 pkgname=tintin
-pkgver=2.00.0
+pkgver=2.00.1
 pkgrel=1
 pkgdesc="A console-based MUD client"
 arch=('i686' 'x86_64')
@@ -20,4 +20,4 @@ build() {
   ln -sf tt++ $pkgdir/usr/bin/tintin
 }
 
-md5sums=('f62b905fe96f539db09cc19de2312b3e')
+md5sums=('5bc8d0f4df124f7fe01a5904084ae01b')

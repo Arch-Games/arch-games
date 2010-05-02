@@ -2,45 +2,41 @@
 # Contributor: Christoph Zeiler <rabyte*gmail>
 
 pkgname=widelands
-pkgver=14
-pkgrel=2
+pkgver=15
+_realver=build15
+pkgrel=1
 pkgdesc="A realtime strategy game with emphasis on economy and transport"
 arch=('i686' 'x86_64')
 url="http://widelands.org/"
 license=('GPL')
-depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs' 'ggz-client-libs' 'libggz')
-makedepends=('scons>=1' 'boost>=1.35' 'p7zip')
-source=(http://downloads.sourceforge.net/$pkgname/Widelands-Build$pkgver-src.7z
+depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs' 'ggz-client-libs' 'lua')
+makedepends=('cmake' 'boost>=1.35')
+source=(http://launchpad.net/$pkgname/build15/$_realver/+download/$pkgname-$_realver-src.tar.bz2        
         $pkgname.desktop
+        $pkgname.png
         $pkgname.sh)
-md5sums=('06d63783b82b68af7af26198bc0a5afa'
-         '15820bf099fd6f16251fe70a75c534bb'
-         '7cae50aba5ed0cd2cfeea79124637b46')
 
 build() {
-    cd $srcdir
-    7z x Widelands-Build$pkgver-src.7z
-    cd $pkgname
+    cd $srcdir/$pkgname-$_realver-src
 
-    # Compile
-    scons prefix=/usr install_prefix=$pkgdir/usr bindir=bin \
-        datadir=share/$pkgname localedir=/usr/share/$pkgname/locale \
-        extra_compile_flags="${CXXFLAGS}" \
-        build=release \
-        prefer_localdata=False \
-        || return 1
+    mkdir -p build/compile && cd build/compile
 
-    # Copy data and fix permissions
-    install -d $pkgdir/usr/share/$pkgname
-    cp -rf campaigns/ fonts/ locale/ maps/ music/ pics/ sound/ tribes/ txts/ worlds/ \
-        $pkgdir/usr/share/$pkgname/
-
-    find $pkgdir/usr/share -type f -exec chmod 644 {} +
-    install -m 755 $pkgname $pkgdir/usr/share/$pkgname/$pkgname
+    cmake ../.. -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=$pkgdir/usr \
+        -DWL_INSTALL_DATADIR=share/$pkgname \
+        -DWL_INSTALL_LOCALEDIR=/usr/share/$pkgname/locale \
+        -DWL_INSTALL_BINDIR=bin || return 1
+    make || return 1
+    make install || return 1
 
     # Install bin, icon and desktop file
+    install -Dm 755 src/$pkgname $pkgdir/usr/share/$pkgname/$pkgname
     install -Dm 755 $srcdir/$pkgname.sh $pkgdir/usr/bin/$pkgname
-    install -Dm 644 pics/wl-ico-128.png $pkgdir/usr/share/pixmaps/$pkgname.png
+    install -Dm 644 $srcdir/$pkgname.png $pkgdir/usr/share/pixmaps/$pkgname.png
     install -Dm 644 $srcdir/$pkgname.desktop \
         $pkgdir/usr/share/applications/$pkgname.desktop
 }
+md5sums=('5b2e2d0913272f66055e424f91360b1d'
+         '15820bf099fd6f16251fe70a75c534bb'
+         '3dfda7e9ca76ca00dd98d745d0ceb328'
+         '7cae50aba5ed0cd2cfeea79124637b46')

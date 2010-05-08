@@ -1,13 +1,13 @@
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dfhack-git
-pkgver=20100413
+pkgver=20100508
 pkgrel=1
 pkgdesc="A cross-platform library for accessing Dwarf Fortress memory"
 arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/dfhack/"
 license=('custom:zlib')
 depends=(gcc-libs libx11)
-makedepends=(cmake subversion)
+makedepends=(cmake git)
 conflicts=(dfhack dfhack-svn)
 provides=(dfhack)
 replaces=(dfhack-svn)

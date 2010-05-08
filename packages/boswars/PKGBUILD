@@ -1,44 +1,40 @@
 # Contributor: Stefan Lohmaier <noneus AT noneus DOT_de>
 
 pkgname=boswars
-pkgver=2.5
-pkgrel=3
+pkgver=2.6.1
+pkgrel=1
 pkgdesc="Bos Wars is a futuristic real-time strategy game."
 url="http://www.boswars.org/"
-arch=('i686' 'x86_64')
 license=('GPL')
-depends=('sdl' 'zlib' 'lua' 'libvorbis' 'libogg' 'libtheora' 'libmikmod')
+depends=('mesa' 'libgl' 'libpng' 'sdl' 'zlib' 'lua' 'libvorbis' 'libogg' 'libtheora' 'libmikmod')
 makedepends=('scons')
-source=(http://www.boswars.org/dist/releases/boswars-2.5-src.tar.gz
-        boswars.sh 
-        boswars.png 
-        boswars.desktop 
-        boswars.patch)
-    
+arch=(i686 x86_64)
+source=(http://www.boswars.org/dist/releases/$pkgname-$pkgver-src.tar.gz \
+	boswars boswars.png boswars.desktop)
 
 build() {
-
-  #Patch and build the package
   cd $srcdir/$pkgname-$pkgver-src
-  patch -Np1 -i $srcdir/boswars.patch || return 1
-  scons prefix=opt/boswars || return 1
 
-  #Manually install the package  
-  install -d -m755 $pkgdir/{opt/boswars,usr/bin,usr/share/pixmaps,usr/share/applications}
-  cp -rf campaigns doc graphics intro languages maps scripts sounds units video $pkgdir/opt/boswars
-  install -D -m 755 boswars $pkgdir/opt/boswars/boswars
+#  patch -Np1 < ../gcc43.patch || return 1
 
-  #Install the icon and .desktop file
-  install -D -m 644 $srcdir/boswars.png $pkgdir/usr/share/pixmaps/boswars.png
-  install -D -m 644 $srcdir/boswars.desktop $pkgdir/usr/share/applications/boswars.desktop
+  scons prefix=/usr || return 1
   
-  #Install the bin file
-  install -D -m 755 $srcdir/boswars.sh $pkgdir/usr/bin/boswars
-  
+  mkdir -p $pkgdir/{opt/bos,usr/bin,usr/share/pixmaps,usr/share/applications}
+  cp -rf campaigns doc graphics intro languages maps scripts sounds units $pkgdir/opt/bos
+
+  install -D -m 755 boswars \
+	  $pkgdir/opt/bos/boswars
+
+  install -D -m 755 $srcdir/boswars \
+	  $pkgdir/usr/bin/boswars
+
+  install -D -m 644 $srcdir/boswars.png \
+	  $pkgdir/usr/share/pixmaps/boswars.png
+
+  install -D -m 644 $srcdir/boswars.desktop \
+	  $pkgdir/usr/share/applications/boswars.desktop
 }
-md5sums=('9d280d086ccf81119f40bde98eb9a795'
-         '70bdaf9ec5284751ba29a33cee79490e'
+md5sums=('7f0fcf440e8d765c484f09074f993b40'
+         '2e560036f5f51f781b8ab3806be08c70'
          'ab92e1da36939b8dc69003f5d6045f96'
-         '9dd495a2f125c5b97a9523257397c492'
-         'b79d6fed6ad73ea7ced09be67bb9e481')
-# vim:set ts=2 sw=2 et:
+         '9dd495a2f125c5b97a9523257397c492')

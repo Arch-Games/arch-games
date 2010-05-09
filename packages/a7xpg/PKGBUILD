@@ -1,7 +1,7 @@
 # Contributor: Nick B <Shirakawasuna at gmail _dot_com>
 pkgname=a7xpg
 pkgver=0.11
-pkgrel=2
+pkgrel=3
 pkgdesc="An addictive game by Kenta Cho.  Collect gold with your ship and avoid the enemies!"
 arch=('i686' 'x86_64')
 url="http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg_e.html"

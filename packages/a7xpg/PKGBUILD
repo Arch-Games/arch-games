@@ -8,26 +8,28 @@ url="http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg_e.html"
 license=('custom')
 depends=('libgl' 'sdl_mixer')
 makedepends=('gdc-bin')
-source=(http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg0_11.zip
-	http://ftp.de.debian.org/debian/pool/main/a/a7xpg/a7xpg_0.11.dfsg1-5.diff.gz)
+source=(http://www.asahi-net.or.jp/~cs8k-cyu/windows/${pkgname}0_11.zip
+        http://ftp.de.debian.org/debian/pool/main/a/$pkgname/${pkgname}_$pkgver.dfsg1-5.diff.gz)
 
 build() {
+    cd $srcdir/$pkgname
+    patch -p1 <../$pkgname_0.11.dfsg1-5.diff || return 1
+    while read x; do
+        patch -p1 <debian/patches/"$x" || return 1
+    done <debian/patches/series
 
-cd $startdir/src/a7xpg
-patch -p1 <../a7xpg_0.11.dfsg1-5.diff
-while read x;do patch -p1 <debian/patches/"$x";done <debian/patches/series
-sed -i s,"\/games",,g ./src/abagames/util/sdl/Sound.d ./src/abagames/util/sdl/Texture.d \
-./debian/a7xpg-data.install
-sed -i s,"\/games","\/usr",g ./debian/menu ./debian/a7xpg.desktop ./debian/a7xpg.install
+    sed -i 's,/games,,g' ./src/abagames/util/sdl/Sound.d ./src/abagames/util/sdl/Texture.d \
+        ./debian/$pkgname-data.install
+    sed -i 's,/games,/usr,g' ./debian/menu ./debian/$pkgname.desktop ./debian/$pkgname.install
 
-make || return 1
-mkdir -p $startdir/pkg/usr/share
-install -D -m755 $startdir/src/a7xpg/a7xpg $startdir/pkg/usr/bin/a7xpg
+    make || return 1
+    mkdir -p $pkgdir/usr/share
+    install -D -m755 $srcdir/$pkgname/$pkgname $pkgdir/usr/bin/$pkgname
 
-cp -r $startdir/src/a7xpg $startdir/pkg/usr/share/a7xpg
-install -D -m644 $startdir/src/a7xpg/debian/copyright $startdir/pkg/usr/share/licenses/a7xpg/copyright
-install -D -m644 $startdir/src/a7xpg/debian/a7xpg.desktop $startdir/pkg/usr/share/applications/a7xpg.desktop
-install -D -m644 $startdir/src/a7xpg/debian/a7xpg.xpm $startdir/pkg/usr/share/pixmaps/a7xpg.xpm
+    cp -r $srcdir/$pkgname $pkgdir/usr/share/$pkgname
+    install -D -m644 $srcdir/$pkgname/debian/copyright        $pkgdir/usr/share/licenses/$pkgname/copyright
+    install -D -m644 $srcdir/$pkgname/debian/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+    install -D -m644 $srcdir/$pkgname/debian/$pkgname.xpm     $pkgdir/usr/share/pixmaps/$pkgname.xpm
 }
 
 md5sums=('3280918840913d629b13dc02bcbbfa7d'

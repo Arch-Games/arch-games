@@ -2,7 +2,7 @@
 # Contributor: djnm <nmihalich [at} gmail dott com>
 pkgname=dwarffortress
 pkgver=0.31.04
-pkgrel=1
+pkgrel=2
 pkgdesc="A single-player fantasy game. You control a dwarven outpost or an adventurer in a randomly generated persistent world."
 arch=(i686)
 # WIP Thread: http://www.bay12forums.com/smf/index.php?topic=57492.0

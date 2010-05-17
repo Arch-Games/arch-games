@@ -11,16 +11,8 @@ post_upgrade() {
   fi
   echo '  There are some known bugs with this release -- see http://www.bay12forums.com/smf/index.php?topic=57492.0'
   echo "  $1 maintains save compatibility from 0.31.01 and up"
+  chown -R root:games /opt/df_linux/data
+  # I shouldn't need this, but somehow it's broken in the past. Have this as insurance I guess...
 }
-
-## arg 1:  the old package version
-#pre_remove() {
-  # do something here
-#}
-
-## arg 1:  the old package version
-#post_remove() {
-  # do something here
-#}
 
 # vim:set ts=2 sw=2 et:

@@ -1,20 +1,19 @@
 # Maintainer: Daenyth <Daenyth+Arch [AT] gmail [DOT] com>
 # Contributor: djnm <nmihalich [at} gmail dott com>
 pkgname=dwarffortress
-pkgver=v0.28.181.40d19
-pkgrel=2
+pkgver=0.31.04
+pkgrel=1
 pkgdesc="A single-player fantasy game. You control a dwarven outpost or an adventurer in a randomly generated persistent world."
 arch=(i686)
-# Current FotF: http://www.bay12games.com/forum/index.php?topic=50514.0
+# WIP Thread: http://www.bay12forums.com/smf/index.php?topic=57492.0
 url="http://www.bay12games.com/dwarves/"
+install="$pkgname.install"
 license=('custom:dwarffortress')
 depends=(gtk2 mesa sdl_image libsndfile openal)
-source=(http://www.bay12games.com/dwarves/df_28_181_40d19_linux.tar.bz2
-        dwarffortress http://brage.info/~svein/df-40d19-head.tar.bz2
-        dwarffortress.desktop dwarffortress.png)
-md5sums=('95fc220321e88a646bb60de9e5ce942a'
-         'c7259bdd79e49e53e5d31a6ef12e8fae'
-         '615c77340f9cc2191d595907c19e2995'
+source=(http://www.bay12games.com/dwarves/df_31_04_linux.tar.bz2
+        dwarffortress dwarffortress.desktop dwarffortress.png)
+md5sums=('be5419d50fe86213c66e87c0cd52fbdb'
+         '4b8812f5816f901af6a06ae8dfc01ef6'
          'c8984d1eea6e409ecf339d6ee9e91e42'
          'b1d51f82400073af9bb179e34a9209d0')
 

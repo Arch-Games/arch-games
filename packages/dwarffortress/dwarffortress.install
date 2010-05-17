@@ -1,0 +1,26 @@
+## arg 1:  the new package version
+post_install() {
+  post_upgrade
+}
+
+## arg 1:  the new package version
+## arg 2:  the old package version
+post_upgrade() {
+  if [ `vercmp $2 0.31` -eq -1 ]; then
+    echo '  DF2010 Changelog: http://df.magmawiki.com/index.php/DF2010:Release_Information'
+  fi
+  echo '  There are some known bugs with this release -- see http://www.bay12forums.com/smf/index.php?topic=57492.0'
+  echo "  $1 maintains save compatibility from 0.31.01 and up"
+}
+
+## arg 1:  the old package version
+#pre_remove() {
+  # do something here
+#}
+
+## arg 1:  the old package version
+#post_remove() {
+  # do something here
+#}
+
+# vim:set ts=2 sw=2 et:

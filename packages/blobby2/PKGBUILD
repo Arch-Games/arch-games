@@ -1,30 +1,31 @@
 #Contributor: Urs Wolfer <uwolfer @ fwo.ch>
 
 pkgname=blobby2
-pkgver=0.8a
-_pathver=8
-pkgrel=2
+pkgver=0.9b
+_pathver=Beta%200.9b
+_buildpathver=beta-$pkgver
+pkgrel=1
 pkgdesc="Blobby Volley is one of the most popular freeware (now open source!) games."
 #url="http://blobby.sourceforge.net/"
 url="http://sourceforge.net/projects/blobby/"
 license=('GPL')
-depends=('sdl' 'unzip' 'physfs')
+depends=('mesa' 'sdl' 'unzip' 'physfs' 'boost')
 makedepends=('cmake' 'zip')
 conflicts=('blobby2-svn')
 arch=(i686 x86_64)
-source=(http://downloads.sourceforge.net/project/blobby/Blobby%20Volley%202%20%28Linux%29/Alpha%20$_pathver/$pkgname-linux-$pkgver.tar.gz
+source=(http://downloads.sourceforge.net/project/blobby/Blobby%20Volley%202%20%28Linux%29/$_pathver/$pkgname-linux-$pkgver.tar.gz
 	$pkgname.desktop
         $pkgname.png)
 
-md5sums=('75e7d46039d5e8fe1ed2d174244143a9'
+md5sums=('40ee9f34ee8187c6910f489e4fa4a76d'
          'ab05bed794ee78db693fd3036393275a'
          'c1bc427b41a0a3facd771ac83c7fb412')
 
 build() {
-  cd $srcdir/blobby-alpha-$_pathver
-  cmake -DCMAKE_INSTALL_PREFIX=/usr
+  cd $srcdir/blobby-$_buildpathver
+  cmake -DCMAKE_INSTALL_PREFIX=/usr || return 1
   make || return 1
-  make DESTDIR=$startdir/pkg install
+  make DESTDIR=$startdir/pkg install || return 1
 
   # install .desktop file and icon
   install -dm755 $pkgdir/usr/share/{applications,pixmaps}

@@ -4,20 +4,22 @@
 pkgname=widelands
 pkgver=15
 _realver=build15
-pkgrel=1
+pkgrel=2
 pkgdesc="A realtime strategy game with emphasis on economy and transport"
 arch=('i686' 'x86_64')
 url="http://widelands.org/"
 license=('GPL')
-depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs' 'ggz-client-libs' 'lua')
+depends=('python' 'doxygen' 'sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs' 'ggz-client-libs' 'lua')
 makedepends=('cmake' 'boost>=1.35')
 source=(http://launchpad.net/$pkgname/build15/$_realver/+download/$pkgname-$_realver-src.tar.bz2        
         $pkgname.desktop
         $pkgname.png
-        $pkgname.sh)
+        $pkgname.sh
+	$pkgname-gcc45.patch)
 
 build() {
     cd $srcdir/$pkgname-$_realver-src
+    patch -Np1 -i $srcdir/$pkgname-gcc45.patch || return 1
 
     mkdir -p build/compile && cd build/compile
 
@@ -39,4 +41,5 @@ build() {
 md5sums=('5b2e2d0913272f66055e424f91360b1d'
          '15820bf099fd6f16251fe70a75c534bb'
          '3dfda7e9ca76ca00dd98d745d0ceb328'
-         '7cae50aba5ed0cd2cfeea79124637b46')
+         '7cae50aba5ed0cd2cfeea79124637b46'
+	'694519db0b3bb01d017fd1d628a64199')

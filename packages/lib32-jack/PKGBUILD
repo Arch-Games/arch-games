@@ -1,19 +1,21 @@
+# Maintainer:  SpepS <dreamspepser at yahoo dot it>
 # Contributor: Marco Süß <m_a_r_c_o.suess@gmx.de>
 # Contributor: maribu <Jabber: maribu8789@jabber.ccc.de>
 
 pkgname=lib32-jack
-pkgver=0.116.2
-pkgrel=1
+pkgver=0.118.0
+pkgrel=3
 pkgdesc="A low-latency audio server (32bit libs only)"
 arch=('x86_64')
 license=('LGPL2' 'GPL2')
 url="http://jackit.sf.net/"
 groups=('lib32')
+provides=('lib32-jack-audio-connection-kit')
 depends=('lib32-libsndfile' 'bash')
 replaces=('lib32-jack-audio-connection-kit')
 conflicts=('lib32-jack-audio-connection-kit')
 source=(ftp://ftp.archlinux.org/extra/os/i686/${pkgname/lib32-/}-${pkgver}-${pkgrel}-i686.pkg.tar.xz)
-md5sums=('a59b992de33c5fe537e8a9ac4e0ead76')
+md5sums=('5de766048f6cfe284d54425c7d55bebb')
 
 build() {
 	install -dm755 $pkgdir/opt/lib32/usr/lib || return 1

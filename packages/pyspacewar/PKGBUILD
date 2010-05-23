@@ -2,8 +2,8 @@
 # Maintainer: Dany Martineau <dany.luc.martineau@gmail.com>
 
 pkgname=pyspacewar
-pkgver=0.9.5
-pkgrel=2
+pkgver=0.9.7
+pkgrel=1
 pkgdesc="Open-source game, loosely inspired by Spacewar, Gravity Wars, and a bit by Star Control (I and II)."
 url="http://mg.pov.lt/pyspacewar"
 license="GPL"
@@ -11,7 +11,7 @@ arch=('i686' 'x86_64')
 depends=("python-pygame")
 source=(http://mg.pov.lt/pyspacewar/${pkgname}-${pkgver}.tar.gz setup.patch \
          pyspacewar.desktop)
-md5sums=('940de69ae0198dd053626ece20cbaeff'
+md5sums=('164128ba8a84415748ce4fbc3c2c5647'
          '618630e55daea125c719c32570c63bee'
          'f837679579cddce0b2c2fed3625a74e2')
 

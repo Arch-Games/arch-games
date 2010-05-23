@@ -8,4 +8,4 @@ Comment[en_US]=Networked, 3D clone of pong
 Type=Application
 Name[en_US]=Pong2
 Icon=/usr/share/pixmaps/pong2.png
-
+Categories=Game;

@@ -3,16 +3,16 @@
 
 pkgname=pong2
 pkgver=0.1.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Networked, 3D clone of pong"
 url="http://pong2.berlios.de/"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('libgl' 'openssl' 'sdl_image' 'freeglut')
 source=(http://download.berlios.de/$pkgname/$pkgname-$pkgver.tar.gz
-	pong2.desktop)
+        pong2.desktop)
 md5sums=('3c09cbcefcfdaa00af1a76c49572626c'
-	 '28167ea1175ffcf297583c29f7df66a1')
+         '37699c9ba6bad85f9932915ff618d525')
 
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
@@ -29,4 +29,4 @@ package() {
 		${pkgdir}/usr/share/applications/Pong2.desktop
 }
 
-
+# vim:set ts=2 sw=2 et:

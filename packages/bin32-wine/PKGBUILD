@@ -4,7 +4,7 @@
 
 pkgname=bin32-wine
 _pkgname32=wine
-pkgver=1.2_rc1
+pkgver=1.2_rc2
 pkgrel=1
 _pkgrel32=1
 pkgdesc="Windows API implementation and interpreter, enabling the use of Windows apps in other OSes"
@@ -20,7 +20,7 @@ optdepends=('lib32-alsa-lib: ALSA audio driver'
             'lib32-catalyst-utils: Accelerated 3D with the AMD/ATI binary blob video driver'
             'lib32-libpng, lib32-libldap, lib32-lcms, lib32-jack, lib32-libxslt: optional deps')
 provides=("wine=$pkgver")
-md5sums=('e0b870c0493d64ad8dc8c6a25a950940')
+md5sums=('ded5b8a054adf8a7d617d0d6870b80fc')
 
 source=("wine-1.2-1-i686.pkg.tar.xz")
 

@@ -1,8 +1,8 @@
 # Maintainer: Daenyth <Daenyth+Arch [AT] gmail [DOT] com>
 # Contributor: djnm <nmihalich [at} gmail dott com>
 pkgname=dwarffortress
-pkgver=0.31.04
-pkgrel=2
+pkgver=0.31.06
+pkgrel=1
 pkgdesc="A single-player fantasy game. You control a dwarven outpost or an adventurer in a randomly generated persistent world."
 arch=(i686)
 # WIP Thread: http://www.bay12forums.com/smf/index.php?topic=57492.0
@@ -10,10 +10,10 @@ url="http://www.bay12games.com/dwarves/"
 install="$pkgname.install"
 license=('custom:dwarffortress')
 depends=(gtk2 mesa sdl_image libsndfile openal)
-source=(http://www.bay12games.com/dwarves/df_31_04_linux.tar.bz2
+source=(http://www.bay12games.com/dwarves/df_31_06_linux.tar.bz2
         dwarffortress dwarffortress.desktop dwarffortress.png)
-md5sums=('be5419d50fe86213c66e87c0cd52fbdb'
-         '4b8812f5816f901af6a06ae8dfc01ef6'
+md5sums=('f27a0ded8a659db490221fffb3cc97a5'
+         'c19aacc31e8df354827db352fecfd200'
          'c8984d1eea6e409ecf339d6ee9e91e42'
          'b1d51f82400073af9bb179e34a9209d0')
 
@@ -26,10 +26,11 @@ build() {
   find $pkgdir/opt/df_linux -type d -exec chmod 755 {} +
   find $pkgdir/opt/df_linux -type f -exec chmod 644 {} +
 
-  # My launcher is better than their launcher :D
   install -Dm755 $srcdir/dwarffortress $pkgdir/usr/bin/dwarffortress
 
-  chmod 755 $pkgdir/opt/df_linux/dwarfort.exe
+  chmod 755 $pkgdir/opt/df_linux/libs/Dwarf_Fortress
+
+  install -d -m775 -o root -g games $pkgdir/opt/df_linux/data/save
 
   # This probably is overkill, but I don't know what specific files df needs permission for in here.
   chown -R root:games $pkgdir/opt/df_linux/data

@@ -8,7 +8,7 @@ if [[ $(git config hooks.missingsources.allow) == true ]]; then
     exit 0
 fi
 
-staged_files=($(git diff --cached --name-only))
+staged_files=($(git diff --cached --name-only --diff-filter=AM))
 repo_root="$(git rev-parse --git-dir)/.."
 exit_code=0
 # Having GIT_DIR set breaks some things. I don't really understand why it's set or if I will break things by unsetting it...
@@ -25,7 +25,7 @@ for file in ${staged_files[@]}; do
     pushd "$repo_root/$(dirname "$file")" >/dev/null
 
     sources=$(source PKGBUILD; echo ${source[@]} $install)
-    for source_file in "${sources[@]}"; do
+    for source_file in ${sources[@]}; do
         if echo $source_file | grep -q '://'; then
             # Source is downloadable, we don't want it committed
             continue

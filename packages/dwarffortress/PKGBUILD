@@ -10,7 +10,12 @@ url="http://www.bay12games.com/dwarves/"
 install="$pkgname.install"
 license=('custom:dwarffortress')
 depends=(gtk2 mesa sdl_image libsndfile openal)
-[[ $CARCH == 'x86_64' ]] && depends=(lib32-gtk2 lib32-mesa lib32-sdl_image lib32-libsndfile lib32-openal lib32-libxdamage)
+if [[ $CARCH == 'x86_64' ]]; then
+  depends=(lib32-gtk2 lib32-mesa lib32-sdl_image lib32-libsndfile lib32-openal
+  lib32-libxdamage lib32-ncurses)
+  optdepends=('lib32-nvidia-utils: If you have nvidia graphics'
+              'lib32-catalyst-utils: If you have ATI graphics')
+fi
 replaces=(bin32-dwarffortress)
 source=(http://www.bay12games.com/dwarves/df_31_06_linux.tar.bz2
         dwarffortress dwarffortress.desktop dwarffortress.png)

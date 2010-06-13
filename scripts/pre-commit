@@ -8,7 +8,7 @@ if [[ $(git config hooks.missingsources.allow) == true ]]; then
     exit 0
 fi
 
-staged_files=($(git diff --cached --name-only))
+staged_files=($(git diff --cached --name-only --diff-filter=AM))
 repo_root="$(git rev-parse --git-dir)/.."
 exit_code=0
 # Having GIT_DIR set breaks some things. I don't really understand why it's set or if I will break things by unsetting it...

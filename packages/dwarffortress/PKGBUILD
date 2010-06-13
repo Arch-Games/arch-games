@@ -4,12 +4,14 @@ pkgname=dwarffortress
 pkgver=0.31.06
 pkgrel=1
 pkgdesc="A single-player fantasy game. You control a dwarven outpost or an adventurer in a randomly generated persistent world."
-arch=(i686)
+arch=(i686 x86_64)
 # WIP Thread: http://www.bay12forums.com/smf/index.php?topic=57492.0
 url="http://www.bay12games.com/dwarves/"
 install="$pkgname.install"
 license=('custom:dwarffortress')
 depends=(gtk2 mesa sdl_image libsndfile openal)
+[[ $CARCH == 'x86_64' ]] && depends=(lib32-gtk2 lib32-mesa lib32-sdl_image lib32-libsndfile lib32-openal lib32-libxdamage)
+replaces=(bin32-dwarffortress)
 source=(http://www.bay12games.com/dwarves/df_31_06_linux.tar.bz2
         dwarffortress dwarffortress.desktop dwarffortress.png)
 md5sums=('f27a0ded8a659db490221fffb3cc97a5'

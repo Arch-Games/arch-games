@@ -2,48 +2,39 @@
 
 pkgname=fretsonfire-alarian-mod
 pkgver=3.121
-pkgrel=1
-pkgdesc="fretsonfire X (FoFiX). Highly improved version of Frets on Fire. Get more themes (like GH and RB themes) at http://tinyurl.com/fof-themes"
+pkgrel=2
+pkgdesc="fretsonfire X (FoFiX). Highly improved version of Frets on Fire"
 url="http://code.google.com/p/fofix"
-arch=('i686' 'x86_64')
+arch=(any)
 license=('GPL')
 install=${pkgname}.install
 groups=('games')
-conflicts=('fofix-svn' 'fretsonfire' 'bin32-fretsonfire' 'fofix-svn-bin32')
-depends=('python' 'python-pygame' 'python-opengl' 'python-numpy' 'python-numeric' 'pil' 'pyogg' 'pyvorbis' 'python-pysqlite' 'pyxml' 'cx_freeze' 'libffi')
-source=('http://fofix.googlecode.com/files/fofix-3.121.tar.gz' 'makefilefix.diff' 'FoFiX.desktop' 'FoFiX.png')
-md5sums=('ce63bc8924711ab0c52cebbb1b779d7f' '7768760930fa4619430b3d8c360bb440' '0bb8ee1df87de661ccba48a505b8990c' 'f886a7fdfa7592b50aa9f62901910e03')
+conflicts=('fofix-svn' 'fretsonfire' 'bin32-fretsonfire')
+depends=('python' 'python-pygame' 'python-opengl' 'python-numpy' 'python-numeric' 'pil' 'pyogg' 'pyvorbis' 'python-pysqlite' 'pyxml' 'libffi')
+source=('http://fofix.googlecode.com/files/fofix-3.121.tar.gz' 'FoFiX.desktop' 'FoFiX.png')
+md5sums=('ce63bc8924711ab0c52cebbb1b779d7f' '0bb8ee1df87de661ccba48a505b8990c' 'f886a7fdfa7592b50aa9f62901910e03')
 
 
 build() {
-cd fofix-3.121/
-msg "Patching Makefile (thanks antzek9)"
-patch ./Makefile $srcdir/makefilefix.diff
 
-msg "Compiling"
-make dist
-mv data dist/
-
-msg "Creating menu entry"
+# make dirs
 install -d $pkgdir/usr/
 install -d $pkgdir/usr/share/
 install -d $pkgdir/usr/share/applications/
 install -d $pkgdir/usr/share/pixmaps/
 install -d $pkgdir/usr/bin/
 install -d $pkgdir/opt/
+
+# move binaries to pkgdir
 cd ${srcdir}
 cp ${startdir}/FoFiX.desktop ${pkgdir}/usr/share/applications/
 cp ${startdir}/FoFiX.png ${pkgdir}/usr/share/pixmaps/
-mv ${srcdir}/fofix-3.121/dist $pkgdir/opt/FoFiX
+mv ${srcdir}/fofix-3.121 $pkgdir/opt/FoFiX
 cd $pkgdir/usr/bin/
-msg "Creating launcher script"
 echo "#/bin/sh" > FoFiX
-echo "cd /opt/FoFiX/" >> FoFiX
+echo "cd /opt/FoFiX/src/" >> FoFiX
 echo "# Taskset -c 0 tells the CPU to only use the first core, which can mean increased performance and stability" >> FoFiX
-echo "taskset -c 0 ./FoFiX" >> FoFiX
-msg "Setting permissions"
+echo "taskset -c 0 python ./FoFiX.py" >> FoFiX
 chmod +x FoFiX
 chmod -R 777 $pkgdir/opt/FoFiX
-
-
 }

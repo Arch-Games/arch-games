@@ -1,0 +1,34 @@
+# Contributor: LinkMaster03 <linkmaster032000 the at symbol gmail.com>
+
+pkgname=mangler
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="Ventrilo compatible VOIP client for Linux (latest stable release)"
+arch=('i686' 'x86_64')
+url="http://www.mangler.org/"
+license=('GPLv3')
+depends=('gtkmm' 'librsvg' 'gsm' 'speex')
+makedepends=('oss')
+optdepends=('alsa-lib: ALSA support'
+    'oss: OSS support'
+    'pulseaudio: PulseAudio support'
+    'celt: CELT codec support'
+    'espeak: TTS support'
+    'xosd: Information overlay support'
+    'dbus-glib: Rhythmbox/Amarok integration'
+    'g15daemon: G15 keyboard support'
+    'libg15: G15 keyboard support'
+    'libg15render: G15 keyboard support')
+provides=()
+conflicts=('mangler-svn')
+source=(http://www.mangler.org/downloads/$pkgname-$pkgver.tar.bz2)
+md5sums=('03ffb3201b2bb1eff8dd06d27c173df4')
+
+build() {
+    cd $startdir/src/$pkgname-$pkgver
+
+    touch configure
+    ./configure --prefix=/usr || return 1
+    make || return 1
+    make DESTDIR=${pkgdir} install || return 1
+}

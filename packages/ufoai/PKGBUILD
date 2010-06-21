@@ -1,52 +1,28 @@
-# Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
-
+# Maintainer: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 pkgname=ufoai
-pkgver=2.2.1
-pkgrel=3
+pkgver=2.3
+pkgrel=1
 pkgdesc="UFO: Alien Invasion is a strategy game featuring tactical combat"
-url="http://ufoai.sourceforge.net/"
 arch=('i686' 'x86_64')
+url="http://ufoai.ninex.info/"
 license=('GPL')
-depends=('libjpeg' 'libpng' 'curl' 'sdl_mixer' 'sdl_ttf' 'ufoai-data')
-source=(http://downloads.sourceforge.net/sourceforge/ufoai/$pkgname-$pkgver-source.tar.bz2
-        ufoai.png 
-        ufoai.desktop
-        ufo.sh
-        ufoded.sh
-        ufoai.patch
-        ufo2map.sh)
-    
+depends=('libgl' 'mesa' 'libjpeg' 'libpng' 'curl' 'sdl_image' 'sdl_mixer' 'sdl_ttf' 'xvidcore' 'ufoai-data')
+source=(http://downloads.sourceforge.net/project/ufoai/UFO_AI%202.x/$pkgver/ufoai-$pkgver-source.tar.bz2)
+md5sums=('9d180ed896a58fe0e514601cd7637dc1')
 
 build() {
-  
-  #Build and install the package
-  cd $srcdir/$pkgname-$pkgver-source
+  cd "$srcdir"/$pkgname-$pkgver-source
 
-  #Patch for libpng libjpeg
-  patch -p1 -i "$srcdir/ufoai.patch"
-  ./configure --prefix=/usr --enable-release
+  ./configure --prefix=/usr --enable-release --disable-uforadiant
   make || return 1
-  make prefix=$pkgdir/usr install
-  
-  #Install the .desktop and icon files
-  install -D -m644 $srcdir/ufoai.desktop $pkgdir/usr/share/applications/ufoai.desktop
-  install -D -m644 $srcdir/ufoai.png $pkgdir/usr/share/pixmaps/ufoai.png
-  
-  #Patch the bin files
-  sed -i "s|$pkgdir||" $pkgdir/usr/bin/*
+  make DESTDIR="$pkgdir" install_exec
 
-  # Install binary launcher scripts
-  install -Dm755 $srcdir/ufo.sh $pkgdir/usr/bin/ufo
-  install -Dm755 $srcdir/ufoded.sh $pkgdir/usr/bin/ufoded
-  install -Dm755 $srcdir/ufo2map.sh $pkgdir/usr/bin/ufo2map
+  install -D -m644 debian/ufoai.desktop "$pkgdir"/usr/share/applications/ufoai.desktop
+  install -D -m644 debian/ufoai-safe.desktop "$pkgdir"/usr/share/applications/ufoai-safe.desktop
+  install -D -m644 debian/ufoded.desktop "$pkgdir"/usr/share/applications/ufoded.desktop
 
+  sed -i 's|/usr/games/||' "$pkgdir"/usr/share/applications/*
+
+  install -D -m644 debian/ufoai.xpm "$pkgdir"/usr/share/pixmaps/ufoai.xpm
+  install -D -m644 debian/ufoded.xpm "$pkgdir"/usr/share/pixmaps/ufoded.xpm
 }
-
-# vim:set ts=2 sw=2 et:
-md5sums=('d3d1e45056fe87efbd9a0f000779ab17'
-         'ae3be6e45fdd8ff584fcfc55d6a40a72'
-         '52af75b2ed6c027d2523b3358b8f1b32'
-         '2ec96c0320ebfa748ebe8a7c811e84f8'
-         'c9c09c0305731f76dbc16613c4ea7ff0'
-         '50063bfd219e1d9beff54756172d5ad3'
-         '41640810d2985ff9f35d5009116c2b94')

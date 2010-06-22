@@ -1,7 +1,7 @@
 # Maintainer: Daenyth <Daenyth+Arch [AT] gmail [DOT] com>
 # Contributor: djnm <nmihalich [at} gmail dott com>
 pkgname=dwarffortress
-pkgver=0.31.06
+pkgver=0.31.08
 pkgrel=1
 pkgdesc="A single-player fantasy game. You control a dwarven outpost or an adventurer in a randomly generated persistent world."
 arch=(i686 x86_64)
@@ -17,9 +17,9 @@ if [[ $CARCH == 'x86_64' ]]; then
               'lib32-catalyst-utils: If you have ATI graphics')
 fi
 replaces=(bin32-dwarffortress)
-source=(http://www.bay12games.com/dwarves/df_31_06_linux.tar.bz2
+source=(http://www.bay12games.com/dwarves/df_31_08_linux.tar.bz2
         dwarffortress dwarffortress.desktop dwarffortress.png)
-md5sums=('f27a0ded8a659db490221fffb3cc97a5'
+md5sums=('cc16708b8bf055bf976c89869fa1e6bf'
          'c19aacc31e8df354827db352fecfd200'
          'c8984d1eea6e409ecf339d6ee9e91e42'
          'b1d51f82400073af9bb179e34a9209d0')

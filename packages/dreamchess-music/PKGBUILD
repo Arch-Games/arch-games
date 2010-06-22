@@ -5,19 +5,19 @@ pkgver=1.0
 pkgrel=1
 pkgdesc="Music Pack for DreamChess"
 url="http://www.dreamchess.org/"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('CCPL')
-depends=('dreamchess')
+depends=()
 source=(http://download2.berlios.de/dreamchess/$pkgname-$pkgver.run.tar)
 md5sums=('e05eb5a140acefc99b984868f1f13039')
 
 build() {
 
   #Unpack and install the package
-  cd $srcdir/$pkgname-$pkgver
+#  cd $srcdir/$pkgname-$pkgver
   $srcdir/$pkgname-$pkgver.run --noexec --keep --target $pkgname-$pkgver || return 1
   install -d -m755 $pkgdir/usr/share/{dreamchess,licenses/$pkgname}
-  cp -r data/music $pkgdir/usr/share/dreamchess/
+  cp -r $srcdir/$pkgname-$pkgver/data/music $pkgdir/usr/share/dreamchess/
   
 }
 

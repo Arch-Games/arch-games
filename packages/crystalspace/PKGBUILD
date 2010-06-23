@@ -3,7 +3,7 @@
 
 pkgname=crystalspace
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and portable 3D Game Development Kit written in C++"
 url="http://www.crystalspace3d.org"
 license=('LGPL')

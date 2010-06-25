@@ -4,7 +4,7 @@
 
 pkgname=alephone
 pkgver=20100218
-pkgrel=1
+pkgrel=2
 pkgdesc='A free, enhanced port of the classic FPS "Marathon 2" by Bungie Software'
 arch=('i686' 'x86_64')
 url="http://marathon.sourceforge.net/"

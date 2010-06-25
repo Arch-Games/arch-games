@@ -3,7 +3,7 @@
 
 pkgname=alephone-emr
 pkgver=3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='"Excalibur: Morganas Revenge" is an FPS adventure game based on the Marathon engine'
 arch=('any')
 url="http://www.excaliburworld.com/emr/emr3/"

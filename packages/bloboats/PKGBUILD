@@ -3,7 +3,7 @@
 
 pkgname=bloboats
 pkgver=1.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A boat racing game reminiscent of Elasto Mania and X-Moto"
 arch=('i686' 'x86_64')
 url="http://bloboats.dy.fi/"

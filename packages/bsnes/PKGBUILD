@@ -1,12 +1,12 @@
 # Contributor: [vEX] <niechift.dot.vex.at.gmail.dot.com>
 pkgname=bsnes
-pkgver=0.064
+pkgver=0.065
 pkgrel=1
 pkgdesc="Super Nintendo Entertainment System (SNES) emulator focused on accuracy."
 arch=('i686' 'x86_64')
 url="http://byuu.org/bsnes/"
 license=('GPL2' 'LGPL' 'zlib' 'custom:unrar')
-depends=('libao' 'libgl' 'libxv' 'openal' 'sdl' 'qt>=4.5.0')
+depends=('libao' 'libgl' 'libxv' 'openal' 'sdl' 'mesa'  'qt>=4.5.0')
 makedepends=('pkgconfig')
 replaces=('snesfilter' 'snesreader' 'supergameboy')
 source=("http://bsnes.googlecode.com/files/${pkgname}_v064.tar.bz2")

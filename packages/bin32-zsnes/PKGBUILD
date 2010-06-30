@@ -13,10 +13,10 @@ source=(ftp://ftp.archlinux.org/extra/os/i686/${pkgname/bin32-/}-${pkgver}-${pkg
 md5sums=('a667d04d7bfb596eb59291d35ea8261f')
 
 build() {
-    mkdir -p $startdir/pkg/opt/lib32/usr
-    cp -R $startdir/src/usr/* $startdir/pkg/opt/lib32/usr
- mkdir $startdir/pkg/usr
- mkdir $startdir/pkg/usr/bin
- ln -s /opt/lib32/usr/bin/zsnes $startdir/pkg/usr/bin
+    mkdir -p $pkgdir/opt/lib32/usr
+    cp -R $srcdir/usr/* $pkgdir/opt/lib32/usr
+ mkdir $pkgdir/usr
+ mkdir $pkgdir/usr/bin
+ ln -s /opt/lib32/usr/bin/zsnes $pkgdir/usr/bin
 }
 

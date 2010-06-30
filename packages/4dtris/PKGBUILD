@@ -13,9 +13,9 @@ source=(http://dtris.sourceforge.net/downloads/4DTRIS.$pkgver.src.tar)
 md5sums=('95f14cbc0b55a15393685c4b74faa36c')
 
 build() {
-  cd "$startdir/src"
+  cd "$srcdir"
 
-  make -f Makefile_linux || return 1
-  install -D -m755 "$startdir/src/4DTRIS" \
-    "$startdir/pkg/usr/bin/4dtris" || return 1
+  make -f Makefile_linux || return 1
+  install -D -m755 "$srcdir/4DTRIS" \
+    "$pkgdir/usr/bin/4dtris" || return 1
 }

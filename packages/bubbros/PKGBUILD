@@ -19,29 +19,29 @@ md5sums=('157e47b577b1192df2e142f35f30e460'
          'f3b91347f8a47838bb389a6badcac7d7')
 
 build() {
-  cd $startdir/src/$pkgname-$pkgver
+  cd $srcdir/$pkgname-$pkgver
   patch -Np1 -i ../bub-n-bros-1.6-python25.patch
   patch -Np0 -i ../bub-n-bros-1.6-home.patch
 
-  cd $startdir/src/$pkgname-$pkgver/bubbob
+  cd $srcdir/$pkgname-$pkgver/bubbob
   python setup.py build_ext -i || return 1
-  cd $startdir/src/$pkgname-$pkgver/display
+  cd $srcdir/$pkgname-$pkgver/display
   python setup.py build_ext -i || return 1
-  cd $startdir/src/$pkgname-$pkgver/bubbob/images
+  cd $srcdir/$pkgname-$pkgver/bubbob/images
   python buildcolors.py || return 1
 
-  mkdir -p $startdir/pkg/usr/share/bubbros
-  cd $startdir/src/$pkgname-$pkgver/
-  install -m755 BubBob.py $startdir/pkg/usr/share/bubbros
-  cp -r {bubbob,common,display,java,http2,metaserver} $startdir/pkg/usr/share/bubbros
+  mkdir -p $pkgdir/usr/share/bubbros
+  cd $srcdir/$pkgname-$pkgver/
+  install -m755 BubBob.py $pkgdir/usr/share/bubbros
+  cp -r {bubbob,common,display,java,http2,metaserver} $pkgdir/usr/share/bubbros
   
-  mkdir -p $startdir/pkg/usr/bin
-  ln -s /usr/share/bubbros/BubBob.py $startdir/pkg/usr/bin/bubnbros
+  mkdir -p $pkgdir/usr/bin
+  ln -s /usr/share/bubbros/BubBob.py $pkgdir/usr/bin/bubnbros
 
-  mkdir -p $startdir/pkg/usr/share/{applications,pixmaps}
-  install -m644 $startdir/src/bubnbros.desktop \
+  mkdir -p $pkgdir/usr/share/{applications,pixmaps}
+  install -m644 $srcdir/bubnbros.desktop \
     ${startdir}/pkg/usr/share/applications/
-  install -m644 $startdir/src/$pkgname-$pkgver/http2/data/bob.png \
+  install -m644 $srcdir/$pkgname-$pkgver/http2/data/bob.png \
     ${startdir}/pkg/usr/share/pixmaps/bubnbros.png
 }
 

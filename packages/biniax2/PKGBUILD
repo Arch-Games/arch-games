@@ -18,19 +18,19 @@ md5sums=('53e90cf42b825af23e086f4562234ae3'
 
 build() {
 
-mkdir -p $startdir/pkg/usr/share/biniax2/{data/{graphics,music,sound,text},desktop,SDLinclude}
+mkdir -p $pkgdir/usr/share/biniax2/{data/{graphics,music,sound,text},desktop,SDLinclude}
 
-cd $startdir/src
+cd $srcdir
 make || return 1
-install -D -m755 $startdir/src/biniax2 $startdir/pkg/usr/share/biniax2/biniax2
-install -D -m644 $startdir/src/SDLinclude/* $startdir/pkg/usr/share/biniax2/SDLinclude/
-install -D -m644 $startdir/src/desktop/* $startdir/pkg/usr/share/biniax2/desktop/
-install -D -m644 $startdir/src/LICENSE.txt $startdir/pkg/usr/share/licenses/biniax2/LICENSE.txt
-install -D -m644 $startdir/src/data/graphics/* $startdir/pkg/usr/share/biniax2/data/graphics/
-install -D -m644 $startdir/src/data/music/* $startdir/pkg/usr/share/biniax2/data/music/
-install -D -m644 $startdir/src/data/sound/* $startdir/pkg/usr/share/biniax2/data/sound/
-install -D -m644 $startdir/src/data/text/* $startdir/pkg/usr/share/biniax2/data/text/
-install -D -m755 $startdir/src/biniax2-script $startdir/pkg/usr/bin/biniax2
-install -D -m644 $startdir/src/biniax2-icon $startdir/pkg/usr/share/pixmaps/biniax2.png
-install -D -m644 $startdir/src/biniax2-desktop $startdir/pkg/usr/share/applications/biniax2.desktop
+install -D -m755 $srcdir/biniax2 $pkgdir/usr/share/biniax2/biniax2
+install -D -m644 $srcdir/SDLinclude/* $pkgdir/usr/share/biniax2/SDLinclude/
+install -D -m644 $srcdir/desktop/* $pkgdir/usr/share/biniax2/desktop/
+install -D -m644 $srcdir/LICENSE.txt $pkgdir/usr/share/licenses/biniax2/LICENSE.txt
+install -D -m644 $srcdir/data/graphics/* $pkgdir/usr/share/biniax2/data/graphics/
+install -D -m644 $srcdir/data/music/* $pkgdir/usr/share/biniax2/data/music/
+install -D -m644 $srcdir/data/sound/* $pkgdir/usr/share/biniax2/data/sound/
+install -D -m644 $srcdir/data/text/* $pkgdir/usr/share/biniax2/data/text/
+install -D -m755 $srcdir/biniax2-script $pkgdir/usr/bin/biniax2
+install -D -m644 $srcdir/biniax2-icon $pkgdir/usr/share/pixmaps/biniax2.png
+install -D -m644 $srcdir/biniax2-desktop $pkgdir/usr/share/applications/biniax2.desktop
 }

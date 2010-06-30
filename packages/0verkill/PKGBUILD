@@ -2,7 +2,7 @@
 # Contributor: Bartosz Dusilo <cbreaker@tlen.pl>
 pkgname=0verkill
 pkgver=0.16
-pkgrel=5
+pkgrel=6
 pkgdesc="Bloody 2D online deathmatch game created in ASCII-ART"
 arch=('i686')
 license=('GPL')
@@ -16,18 +16,17 @@ md5sums=('814097fc21a82723a40ec8ae5dd792a7'
          '8f5a607e8115f783018b899ac669d66c')
 
 build() {
-	cd ${startdir}
-	cd ${startdir}/src/$pkgname-$pkgver
+	cd $srcdir/$pkgname-$pkgver
 	./configure 
 	make || return 1 
-	mkdir -p $startdir/pkg/usr/{bin,share}
-	mv -v $startdir/src/$pkgname-$pkgver/ \
-        ${startdir}/pkg/usr/share/
-	chmod 755 ${startdir}/pkg/usr/share/$pkgname-$pkgver
-	chmod 755 ${startdir}/pkg/usr/share/$pkgname-$pkgver/*
-	chmod 755 ${startdir}/pkg/usr/share/$pkgname-$pkgver/data/*
-	chmod 755 ${startdir}/pkg/usr/share/$pkgname-$pkgver/grx/*
-	chmod 755 ${startdir}/pkg/usr/share/$pkgname-$pkgver/doc/*	
-	chmod 755 ${startdir}/{0verkill,0verkill_server}
-	cp -v ${startdir}/{0verkill,0verkill_server} ${startdir}/pkg/usr/bin  
+	mkdir -p $pkgdir/usr/{bin,share}
+	mv -v $srcdir/$pkgname-$pkgver/ \
+        $pkgdir/usr/share/
+	chmod 755 $pkgdir/usr/share/$pkgname-$pkgver
+	chmod 755 $pkgdir/usr/share/$pkgname-$pkgver/*
+	chmod 755 $pkgdir/usr/share/$pkgname-$pkgver/data/*
+	chmod 755 $pkgdir/usr/share/$pkgname-$pkgver/grx/*
+	chmod 755 $pkgdir/usr/share/$pkgname-$pkgver/doc/*	
+	chmod 755 $srcdir/{0verkill,0verkill_server}
+	cp -v $srcdir/{0verkill,0verkill_server} $pkgdir/usr/bin  
 }

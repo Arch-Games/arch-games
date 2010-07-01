@@ -2,7 +2,8 @@
 # Contributor: rabyte <rabyte*gmail>
 # Contributor: Andres Blanc <andresblanc@gmail.com>
 
-pkgname=egoboo
+pkgbase="egoboo"
+pkgname=('egoboo' 'egoboo-data')
 pkgver=2.7.4
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -10,7 +11,6 @@ license=('GPL')
 pkgdesc="An open-source action RPG/dungeon crawling adventure with OpenGL 3D graphics"
 url="http://egoboo.sourceforge.net/"
 depends=('sdl_image' 'sdl_mixer' 'sdl_ttf' 'mesa')
-conflicts=('egoboo-data')
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz
         $pkgname.png
         $pkgname.desktop)
@@ -24,23 +24,39 @@ build() {
     # Patch, compile and install
     sed 's|${HOME}/.local|/usr|g' -i $pkgname.sh
     make OPT="${CFLAGS}" -f Makefile.unix || return 1
+
+
+
+}
+package_egoboo() {
+depends=('sdl_image' 'sdl_mixer' 'sdl_ttf' 'mesa' 'egoboo-data')
+
+
+    cd $srcdir/$pkgname-$pkgver/game
     make PREFIX=$pkgdir/usr -f Makefile.unix install || return 1
 
     cd $srcdir/$pkgname-$pkgver
-
     # Patch default depth to 24 and sound
     sed -i -e 's/\[COLOR_DEPTH\] : "32"/\[COLOR_DEPTH\] : "24"/g' \
         -e 's/\[Z_DEPTH\] : "32"/\[Z_DEPTH\] : "24"/g' \
         -e 's/\[OUTPUT_BUFFER_SIZE\] : "2548/\[OUTPUT_BUFFER_SIZE\] : "2048/g' \
         setup.txt
 
+
+    # Install icon and desktop files
+    install -Dm 644 $srcdir/$pkgname.png $pkgdir/usr/share/pixmaps/$pkgname.png
+    install -Dm 644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+}
+
+
+
+package_egoboo-data()  {
+arch=('any')
+depends=()
+    cd $srcdir/$pkgname-$pkgver
     # Copy data and fix permissions
     install -d $pkgdir/usr/share/{doc/,$pkgname}
     cp -rf controls.txt setup.txt basicdat/ modules/ players/ $pkgdir/usr/share/$pkgname/
     cp -rf doc/ $pkgdir/usr/share/doc/$pkgname/
     find $pkgdir/usr/share/$pkgname -type f -exec chmod 644 {} +
-
-    # Install icon and desktop files
-    install -Dm 644 $srcdir/$pkgname.png $pkgdir/usr/share/pixmaps/$pkgname.png
-    install -Dm 644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
 }

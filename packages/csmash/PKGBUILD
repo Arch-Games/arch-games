@@ -7,7 +7,7 @@ pkgdesc="a 3D tabletennis game."
 url="http://cannonsmash.sourceforge.net/"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('sdl' 'gtk2')
+depends=('sdl' 'gtk2' 'mesa' 'sdl_mixer' 'sdl_image')
 source=(http://downloads.sourceforge.net/cannonsmash/$pkgname-$pkgver.tar.gz
         csmash.patch)
     

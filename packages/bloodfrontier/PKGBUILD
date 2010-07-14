@@ -1,8 +1,9 @@
 # Maintainer: Arkham <arkham at archlinux dot us>
 # Contributor: Christoph Zeiler <rabyte*gmail>
 
-pkgname=bloodfrontier
-pkgver=0.80
+pkgbase=('bloodfrontier')
+pkgname=('bloodfrontier' 'bloodfrontier-data')
+pkgver=0.85
 pkgrel=3
 pkgdesc="A single- and multiplayer FPS based on the Cube 2 (Sauerbraten) engine"
 arch=('i686' 'x86_64')
@@ -10,36 +11,44 @@ url="http://bloodfrontier.com/"
 license=('ZLIB' 'custom')
 depends=('sdl_image' 'sdl_mixer' 'libgl')
 makedepends=('autoconf' 'automake')
-source=(http://downloads.sourceforge.net/$pkgname/$pkgname-B1-linux.tar.bz2
-        $pkgname.desktop
-        $pkgname.patch
-        LICENSE)
-md5sums=('8e8db4b36ecd3f3979b108297e8352de'
-         '53723ae43764a3bcff0d9990cb9dddb2'
-         '756c197c01206b6dc5b58e398ed34282'
-         '432130a92ec29ed6e50e80bf8bc2cbba')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-B2-linux.tar.bz2"
+        "$pkgname.desktop"
+        'LICENSE')
 
 build() {
-    cd $srcdir/$pkgname/src
+ cd $srcdir/$pkgname/src
 
-    # Fix some bugs
-    sed '/strip/d' -i Makefile
-    patch -Np0 -i $srcdir/$pkgname.patch || return 1
+  make CXXOPTFLAGS="${CXXFLAGS}" all || return 1
 
-    # Compile and install
-    make CXXOPTFLAGS="${CXXFLAGS}" all daemon || return 1
-    make install install-daemon || return 1
+  make install || return 1
+}
 
+package_bloodfrontier() {
+    depends=('sdl_image' 'sdl_mixer' 'libgl' 'bloodfrontier-data')
     # Copy bin and data
     cd $srcdir/$pkgname
-    install -d $pkgdir/usr/{share/$pkgname/,}bin
-    sed -i "s|BF_DIR=.|BF_DIR=/usr/share/$pkgname|" $pkgname.sh 
-    install -m 755 $pkgname.sh $pkgdir/usr/bin/$pkgname
-    install -m 755 bin/bf{client,daemon,server} $pkgdir/usr/share/$pkgname/bin/
-    cp -rf data/ $pkgdir/usr/share/$pkgname/
+    install -d "$pkgdir"/usr/{share/$pkgname/,}bin
+    sed -i "s|BF_DATA=.|BF_DATA=/usr/share/$pkgname|" $pkgname.sh
+    install -m755 $pkgname.sh "$pkgdir/usr/bin/$pkgname"
+    install -m755 bin/bf{client,server} "$pkgdir/usr/share/$pkgname/bin"
 
     # Install icon, desktop and license
-    install -Dm 644 src/xcode/help/bf32.png $pkgdir/usr/share/pixmaps/$pkgname.png
-    install -Dm 644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop 
-    install -Dm 644 $srcdir/LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 src/xcode/help/bf32.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
+    install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+    install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
+
+package_bloodfrontier-data() {
+    depends=()
+    pkgdesc="bloodfrontier data files"
+
+    # Copy data
+    install -d "$pkgdir/usr/share/$pkgname/"
+    cd $srcdir/$pkgname
+    cp -rf data/ "$pkgdir/usr/share/$pkgname"
+
+}
+md5sums=('814df812d14714687f44085c83d5b91b'
+         'f768b778020f9a3835ca32f45f22f5ec'
+         'a10fe08cb8d5643536700839e9a9b1b5')
+

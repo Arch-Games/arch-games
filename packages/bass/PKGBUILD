@@ -21,5 +21,5 @@ build() {
     install -d $pkgdir/usr/share/{licenses/,}bass
     install -m 644 readme.txt $pkgdir/usr/share/licenses/bass/
     install -m 644 sky.{cpt,dnr,dsk} $pkgdir/usr/share/bass/
-    install -Dm 755 $srcdir/bass.sh $startdir/pkg/usr/bin/bass
+    install -Dm 755 $srcdir/bass.sh $pkgdir/usr/bin/bass
 }

@@ -14,13 +14,13 @@ source=(http://downloads.sourceforge.net/sourceforge/wiiuse/wiiuse_v$pkgver\_src
 md5sums=('29b555096f79dbd3fbc9b96b8d443083')
 
 build() {
-  cd $startdir/src/wiiuse_v$pkgver
+  cd $srcdir/wiiuse_v$pkgver
   make wiiuse || return 1
 
 #installing
-  mkdir -p $startdir/pkg/usr/lib
-  mkdir -p $startdir/pkg/usr/include
+  mkdir -p $pkgdir/usr/lib
+  mkdir -p $pkgdir/usr/include
 
-  install -D -m644 ./src/release-`gcc -v 2>&1|grep ^Target:|cut -d' ' -f2`/libwiiuse.so $startdir/pkg/usr/lib
-  install -D -m644 ./src/wiiuse.h $startdir/pkg/usr/include
+  install -D -m644 ./src/release-`gcc -v 2>&1|grep ^Target:|cut -d' ' -f2`/libwiiuse.so $pkgdir/usr/lib
+  install -D -m644 ./src/wiiuse.h $pkgdir/usr/include
 }

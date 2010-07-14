@@ -1,8 +1,8 @@
 # Contributor: damian01w <damian01w@gmail.com>
-
+pkgbase=('alienarena')
 pkgname=('alienarena' 'alienarena-data')
 pkgver=20100504
-pkgrel=2
+pkgrel=3
 gamever=7_40
 pkgdesc="Multiplayer retro sci-fi deathmatch game"
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ depends=('curl' 'libgl' 'libjpeg' 'libxxf86dga' 'libxxf86vm' 'mesa'
 'sdl' 'openal' 'libvorbis')
 makedepends=('hd2u' 'unzip')
 source=('http://mirror.arcadepro.org/alienarena-linux20100504.zip'
-	'alienarena.desktop')
+        'alienarena.desktop')
 
 md5sums=('d71d10732f6492a5db23392926e132ca' 
 '46bbe3e3a93b2e5009ffd663ad462915')
@@ -20,7 +20,7 @@ md5sums=('d71d10732f6492a5db23392926e132ca'
 _datadir="/usr/share/${pkgname}"
 _libdir="/usr/lib/${pkgname}"
 build() {
-    cd $startdir/src/${pkgname}${gamever}/source
+    cd ${srcdir}/${pkgname}${gamever}/source
  
     # Arch isn't multilib
     sed -i -e "s:lib64:lib:" Makefile || return 1
@@ -29,38 +29,41 @@ build() {
     sed -i "s/xf86dga.h/Xxf86dga.h/g" unix/gl_glx.c
  
     make PREFIX=/usr \
-	WITH_DATADIR=yes WITH_LIBDIR=yes \
-	DATADIR="${_datadir}" LIBDIR="${_libdir}" \
+        WITH_DATADIR=yes WITH_LIBDIR=yes \
+        DATADIR="${_datadir}" LIBDIR="${_libdir}" \
         || return 1
  
 }
 package_alienarena() {
-cd $startdir/src/${pkgname}${gamever}/source        
+optdepends=('alienarena-data: data files needed to play the game')
+depends=('alienarena-data' 'curl' 'libgl' 'libjpeg' 'libxxf86dga' 'libxxf86vm' 'mesa' 
+'sdl' 'openal' 'libvorbis')
+cd ${srcdir}/${pkgname}${gamever}/source        
 #Binary
-    install -D -m755 release/game.so $startdir/pkg/${_libdir}/arena/game.so || return 1
-    install -D -m755 release/crx $startdir/pkg/usr/bin/${pkgname} || return 1
-    install -D -m755 release/crded $startdir/pkg/usr/bin/${pkgname}-ded || return 1
+    install -D -m755 release/game.so  ${pkgdir}/${_libdir}/arena/game.so || return 1
+    install -D -m755 release/crx  ${pkgdir}/usr/bin/${pkgname} || return 1
+    install -D -m755 release/crded  ${pkgdir}/usr/bin/${pkgname}-ded || return 1
 
 cd ..
     # Desktop entry
-    install -D -m644 aa.png $startdir/pkg/usr/share/pixmaps/${pkgname}.png || return 1
-    install -D -m644 $startdir/src/${pkgname}.desktop $startdir/pkg/usr/share/applications/${pkgname}.desktop || return 1
+    install -D -m644 aa.png  ${pkgdir}/usr/share/pixmaps/${pkgname}.png || return 1
+    install -D -m644 ${srcdir}/${pkgname}.desktop  ${pkgdir}/usr/share/applications/${pkgname}.desktop || return 1
 
     # Docs
     pwd
     cd docs
     dos2unix readme.txt
-    mkdir -p $startdir/pkg/usr/share/doc/$pkgname
-    install -m644 -t $startdir/pkg/usr/share/doc/${pkgname} {license,readme}.txt || return 1
+    mkdir -p  ${pkgdir}/usr/share/doc/$pkgname
+    install -m644 -t ${pkgdir}/usr/share/doc/${pkgname} {license,readme}.txt || return 1
 }
 
 package_alienarena-data() {
 arch=('any')
 depends=() 
-cd $startdir/src/${pkgname}${gamever}       
+    cd ${srcdir}/${pkgname}${gamever}       
     # Data files
     find arena botinfo data1 -type f | while read _f ; do
-    install -D -m644 "$_f" "$startdir/pkg/$_datadir/$_f" || return 1
+    install -D -m644 "$_f" "${pkgdir}/$_datadir/$_f" || return 1
     done
 }
 

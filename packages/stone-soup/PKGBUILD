@@ -1,6 +1,6 @@
 pkgname=stone-soup
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=1
 pkgdesc="Community maintained variant of Linley's Dungeon Crawl"
 arch=('i686' 'x86_64' 'ppc')
 url="http://crawl.develz.org/"
@@ -9,8 +9,8 @@ makedepends=('gcc' 'bison' 'flex')
 conflicts=('crawl' 'stone-soup-tile')
 license=('custom')
 install=stone-soup.install
-source=("http://downloads.sourceforge.net/sourceforge/crawl-ref/stone_soup-$pkgver-nodeps.tar.bz2")
-md5sums=('866e315470a592572e7ce8a7214c7615')
+source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/$pkgver/stone_soup-$pkgver-nodeps.tar.bz2")
+md5sums=('864e00b6a3bd74c9690a3aeb8572dff9')
 
 build() {
     cd $srcdir/stone_soup-$pkgver/source

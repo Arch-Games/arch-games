@@ -2,7 +2,7 @@
 # Contributor: Nelson Menon <nelsonmenon@gmail.com insanatorium.wordpress.com>
 
 pkgname=freecol
-pkgver=0.9.2
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="A turn-based strategy game based on Colonization"
 arch=('any')
@@ -27,6 +27,6 @@ build() {
   find "$pkgdir/usr/share/java/$pkgname" -type d -exec chmod 755 '{}' \;
   find "$pkgdir/usr/share/java/$pkgname" -type f -exec chmod 644 '{}' \;
 }
-md5sums=('04d7126f383ed657b8a336088e795880'
+md5sums=('1bcba36ba6c3ac9de2b4305400a52aa7'
          '55594d770904af3e3e3852d375085357'
          'ae473cd1d86f8f764250ee00b6fda90b')

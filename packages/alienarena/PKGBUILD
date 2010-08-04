@@ -1,9 +1,9 @@
 # Contributor: damian01w <damian01w@gmail.com>
 pkgbase=('alienarena')
 pkgname=('alienarena' 'alienarena-data')
-pkgver=20100504
+pkgver=20100726
 pkgrel=3
-gamever=7_40
+gamever=7_45
 pkgdesc="Multiplayer retro sci-fi deathmatch game"
 arch=('i686' 'x86_64')
 url='http://icculus.org/alienarena/rpa/'
@@ -11,11 +11,12 @@ license=('GPL')
 depends=('curl' 'libgl' 'libjpeg' 'libxxf86dga' 'libxxf86vm' 'mesa' 
 'sdl' 'openal' 'libvorbis')
 makedepends=('hd2u' 'unzip')
-source=('http://mirror.arcadepro.org/alienarena-linux20100504.zip'
-        'alienarena.desktop')
+source=(http://icculus.org/alienarena/Files/alienarena${gamever}-Linux${pkgver}.zip
+    'alienarena.desktop')
 
-md5sums=('d71d10732f6492a5db23392926e132ca' 
-'46bbe3e3a93b2e5009ffd663ad462915')
+md5sums=('7a02717b308f737b320586d3f1ea39e8'
+        '46bbe3e3a93b2e5009ffd663ad462915')
+
  
 _datadir="/usr/share/${pkgname}"
 _libdir="/usr/lib/${pkgname}"
@@ -50,11 +51,10 @@ cd ..
     install -D -m644 ${srcdir}/${pkgname}.desktop  ${pkgdir}/usr/share/applications/${pkgname}.desktop || return 1
 
     # Docs
-    pwd
-    cd docs
-    dos2unix readme.txt
+    dos2unix $srcdir/${pkgname}${gamever}/docs/README.txt
+    #dos2unix README.txt
     mkdir -p  ${pkgdir}/usr/share/doc/$pkgname
-    install -m644 -t ${pkgdir}/usr/share/doc/${pkgname} {license,readme}.txt || return 1
+    install -m644 -t ${pkgdir}/usr/share/doc/${pkgname} $srcdir/${pkgname}${gamever}/docs/{license,README}.txt || return 1
 }
 
 package_alienarena-data() {

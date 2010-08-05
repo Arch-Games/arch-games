@@ -13,13 +13,17 @@ source=(http://sourgumdrop.org.uk/pad/Minestein.zip)
 md5sums=('d0e633e80ad7501142181a9b8d9e64b9')
 
 
-
-
 build() {
-  cd $startdir/src/
-  mkdir -p $startdir/pkg/usr/bin
-  mkdir -p $startdir/pkg/usr/share/minestein
-  cp * $startdir/pkg/usr/share/minestein
-  echo "python /usr/share/minestein/Minestein.pyw" > $startdir/pkg/usr/bin/minestein
-  chmod +x $startdir/pkg/usr/bin/minestein
+  cd $srcdir/
+  mkdir -p $pkgdir/usr/{bin,share/minestein}
+  install -m666 \
+     Minestein_icon.ico  \
+     Minestein_pad_file.xml  \
+     Minestein.pyw \
+     $pkgdir/usr/share/minestein
+  echo "python /usr/share/minestein/Minestein.pyw" > $pkgdir/usr/bin/minestein
+  chmod 777 $pkgdir/usr/bin/minestein
+
 }
+
+md5sums=('613ba462679fff9fab3cc23e021e0677')

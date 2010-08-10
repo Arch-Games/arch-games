@@ -2,7 +2,7 @@
 # Contributor: Nelson Menon <nelsonmenon@gmail.com insanatorium.wordpress.com>
 
 pkgname=freecol
-pkgver=0.9.3
+pkgver=0.9.4
 pkgrel=1
 pkgdesc="A turn-based strategy game based on Colonization"
 arch=('any')
@@ -11,9 +11,6 @@ license=('GPL')
 depends=('java-runtime')
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz
         fc.desktop fc.sh)
-md5sums=('075a1dea6c4a7d9e725a2070a9b762ee'
-         '55594d770904af3e3e3852d375085357'
-         'ae473cd1d86f8f764250ee00b6fda90b')
 
 build() {
   cd "$srcdir/$pkgname"
@@ -27,6 +24,6 @@ build() {
   find "$pkgdir/usr/share/java/$pkgname" -type d -exec chmod 755 '{}' \;
   find "$pkgdir/usr/share/java/$pkgname" -type f -exec chmod 644 '{}' \;
 }
-md5sums=('1bcba36ba6c3ac9de2b4305400a52aa7'
+md5sums=('bed70b8ba6484c6dbe70ba91839a29b6'
          '55594d770904af3e3e3852d375085357'
          'ae473cd1d86f8f764250ee00b6fda90b')

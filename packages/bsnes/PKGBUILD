@@ -1,66 +1,62 @@
 # Contributor: [vEX] <niechift.dot.vex.at.gmail.dot.com>
 pkgname=bsnes
-pkgver=0.065
-pkgrel=1
+pkgver=0.068
+pkgrel=2
 pkgdesc="Super Nintendo Entertainment System (SNES) emulator focused on accuracy."
 arch=('i686' 'x86_64')
 url="http://byuu.org/bsnes/"
 license=('GPL2' 'LGPL' 'zlib' 'custom:unrar')
-depends=('libao' 'libgl' 'libxv' 'openal' 'sdl' 'mesa'  'qt>=4.5.0')
+depends=('mesa' 'libao' 'libgl' 'libxv' 'openal' 'sdl' 'qt>=4.5.0')
 makedepends=('pkgconfig')
 replaces=('snesfilter' 'snesreader' 'supergameboy')
-source=("http://bsnes.googlecode.com/files/${pkgname}_v064.tar.bz2")
-md5sums=('4830e56e7805a869ddd405bc0d7badfb')
+source=("http://bsnes.googlecode.com/files/${pkgname}_v068.tar.bz2")
+md5sums=('9ff2f6dc64f54f0da538cefade64b3a7')
 
 build() {
-  cd "${srcdir}/src"
-
-  # This _might_ help gaining some extra speed by allowing processor specific
-  # optimizations, (ie SSE/SSE2), needs gcc >= 4.2.0
-  GCC_VER=`gcc --version | grep gcc | cut -d ' ' -f 3`
-  GCC_MAJOR=`echo $GCC_VER | cut -d '.' -f 1`
-  GCC_MINOR=`echo $GCC_VER | cut -d '.' -f 2`
-  if [ $GCC_MAJOR -ge 4 -a $GCC_MINOR -ge 2 ]; then
-    msg "gcc version greater than 4.2 found, enabling -mtune=native optimizations"
-    sed -e 's|flags := -O3 |flags := -O3 -mtune=native |' \
-        -i "${srcdir}/src/Makefile" || return 1
-  fi
+  cd "${srcdir}/${pkgname}"
 
   # Makefile hacks
-  # If the help message is printed something went wrong and it should exit with
-  # an error code
-  echo "	@exit 1" >> $srcdir/src/Makefile
   # Disable pulseaudio.
   sed -e 's|audio.pulseaudio ||' \
       -e 's|audio.pulseaudiosimple ||' \
-      -i "${srcdir}/src/ui_qt/Makefile" || return 1
+      -i "${srcdir}/${pkgname}/qt/Makefile" || return 1
 
-  # Build and install it
-  make || return 1
-  make install DESTDIR=$pkgdir prefix=/usr || return 1
-  
+  # Build the different profiles and install them
+  for profile in compatibility performance accuracy; do
+    msg "Building profile: ${profile}"
+    make clean
+    make profile=${profile} || return 1
+    make install profile=${profile} DESTDIR=${pkgdir} prefix=/usr || return 1
+  done
+
+  # Build and install the launcher
+  msg "Building launcher"
+  cd "${srcdir}/${pkgname}/launcher"
+  ./cc.sh
+  install -m755 ${srcdir}/${pkgname}/out/${pkgname} ${pkgdir}/usr/bin/
+
   ##
   # Now lets build and install the plugins, you can remove any of the below if 
   # you don't want/need them.
   ##
   # snesfilter :: output filters
   ##
-  msg "Building snesfilter plugin"
+  msg "Building plugin: snesfilter"
   cd "${srcdir}/snesfilter"
   sed -e 's|\(libsnesfilter.*\) $(DESTDIR)$(prefix)/lib|\1 $(DESTDIR)$(prefix)/lib/\1|' \
       -i "${srcdir}/snesfilter/Makefile" || return 1
   make || return 1
-  make install DESTDIR=$pkgdir prefix=/usr || return 1
+  make install DESTDIR=${pkgdir} prefix=/usr || return 1
   chmod 644 "${pkgdir}/usr/lib/libsnesfilter.a" || return 1
   ##
   # snesreader :: handle compressed files
   ##
-  msg "Building snesreader plugin"
+  msg "Building plugin: snesreader"
   cd "${srcdir}/snesreader"
   sed -e 's|\(libsnesreader.*\) $(DESTDIR)$(prefix)/lib|\1 $(DESTDIR)$(prefix)/lib/\1|' \
       -i "${srcdir}/snesreader/Makefile" || return 1
   make || return 1
-  make install DESTDIR=$pkgdir prefix=/usr || return 1
+  make install DESTDIR=${pkgdir} prefix=/usr || return 1
   chmod 644 "${pkgdir}/usr/lib/libsnesreader.a" || return 1
   # Licenses
   mkdir -p "${pkgdir}/usr/share/licenses/bsnes"
@@ -69,11 +65,11 @@ build() {
   ##
   # supergameboy :: Super Game Boy support
   ##
-  msg "Building supergameboy plugin"
+  msg "Building plugin: supergameboy"
   cd "${srcdir}/supergameboy"
   sed -e 's|\(libsupergameboy.*\) $(DESTDIR)$(prefix)/lib|\1 $(DESTDIR)$(prefix)/lib/\1|' \
       -i "${srcdir}/supergameboy/Makefile" || return 1
   make || return 1
-  make install DESTDIR=$pkgdir prefix=/usr || return 1
+  make install DESTDIR=${pkgdir} prefix=/usr || return 1
   chmod 644 "${pkgdir}/usr/lib/libsupergameboy.a" || return 1
 }

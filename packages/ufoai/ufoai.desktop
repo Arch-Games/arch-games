@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=UFO: Alien Invasion
-Comment=Squad-based tactical strategy game
-Exec=ufo
-Icon=ufoai
-Terminal=false
-X-MultipleArgs=false
-Type=Application
-Categories=Game;

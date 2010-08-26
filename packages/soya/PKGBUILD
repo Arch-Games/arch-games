@@ -13,8 +13,8 @@ source=(http://download.gna.org/$pkgname/Soya-$pkgver.tar.bz2)
 md5sums=('9fa56b14d3e9d5fcee073de650b3206f')
 
 build() {
-cd $startdir/src/Soya-$pkgver
+cd $srcdir/Soya-$pkgver
 sed -i 's|/usr/local/include/cal3d|/usr/include/AL|' setup.py
 sed -i 's|LIBS = \["m", "GLEW", "SDL", "freetype", "cal3d","stdc++"\]|LIBS = \["m", "GLEW", "SDL", "freetype", "cal3d", "stdc++","openal"\]|' setup.py
-python setup.py install --root=$startdir/pkg
+python setup.py install --root=$pkgdir
 } 

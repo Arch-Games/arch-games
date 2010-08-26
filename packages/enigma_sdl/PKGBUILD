@@ -19,7 +19,7 @@ license=('GPL')
 arch=('i686' 'x86_64')
 
 build() {
-  cd $startdir/src/enigma-$pkgver
+  cd $pkgdir/enigma-$pkgver
   patch -p0 -i ../enigma-1.01-enet.patch || return 1
   patch -p0 -i ../enigma-1.01-gcc43.patch || return 1
   patch -p0 -i ../enigma-1.01-gcc44.patch || return 1
@@ -28,7 +28,7 @@ build() {
   autoreconf --install || return 1
   ./configure --prefix=/usr --program-suffix=_sdl --sysconfdir=/etc --disable-sdltest --enable-optimize
   make || return 1
-  make DESTDIR=$startdir/pkg install
-  rm -R $startdir/pkg/usr/share/icons
-  sed -i s/Exec=enigma/Exec=enigma_sdl/ $startdir/pkg/usr/share/applications/enigma.desktop
+  make DESTDIR=$pkgdir install
+  rm -R $pkgdir/usr/share/icons
+  sed -i s/Exec=enigma/Exec=enigma_sdl/ $pkgdir/usr/share/applications/enigma.desktop
 }

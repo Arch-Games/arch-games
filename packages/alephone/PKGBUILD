@@ -3,7 +3,7 @@
 # Contributor: Jacek Poplawski <jacekpoplawski__gmail>
 
 pkgname=alephone
-pkgver=20100218
+pkgver=20100424
 pkgrel=2
 pkgdesc='A free, enhanced port of the classic FPS "Marathon 2" by Bungie Software'
 arch=('i686' 'x86_64')
@@ -34,3 +34,4 @@ build() {
     make || return 1
     make DESTDIR="$pkgdir" install || return 1
 }
+md5sums=('9fd5517fcf4e1dd8ce3fe6331ac58e8e')

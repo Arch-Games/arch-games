@@ -14,8 +14,8 @@ source=(http://www.crystalspace3d.org/downloads/release/${pkgname}-src-${pkgver}
 md5sums=('a6c4f1d0782b1ea2ee483376400f4779')
 
 build() {
-  cd $startdir/src/crystalspace-src-${pkgver}
+  cd $srcdir/crystalspace-src-${pkgver}
   ./configure --prefix=/usr --sysconfdir=/etc --with-java --without-python
   jam || return 1
-  jam DESTDIR=$startdir/pkg install
+  jam DESTDIR=$pkgdir/ install
 }

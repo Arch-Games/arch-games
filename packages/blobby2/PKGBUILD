@@ -25,7 +25,7 @@ build() {
   cd $srcdir/blobby-$_buildpathver
   cmake -DCMAKE_INSTALL_PREFIX=/usr || return 1
   make || return 1
-  make DESTDIR=$startdir/pkg install || return 1
+  make DESTDIR=$pkgdir/ install || return 1
 
   # install .desktop file and icon
   install -dm755 $pkgdir/usr/share/{applications,pixmaps}

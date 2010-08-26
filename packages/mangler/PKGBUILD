@@ -25,7 +25,7 @@ source=(http://www.mangler.org/downloads/$pkgname-$pkgver.tar.bz2)
 md5sums=('03ffb3201b2bb1eff8dd06d27c173df4')
 
 build() {
-    cd $startdir/src/$pkgname-$pkgver
+    cd $srcdir/$pkgname-$pkgver
 
     touch configure
     ./configure --prefix=/usr || return 1

@@ -12,7 +12,7 @@ source=(http://www.parallelrealities.co.uk/download/viruskiller/viruskiller-$pkg
 
 build() {
 
-cd $startdir/src/$pkgname-$pkgver
+cd $srcdir/$pkgname-$pkgver
 
 # fix their method of installing files
 sed -i s,BINDIR\ =\ \$\(PREFIX\)/games/,BINDIR\ =\ \$\(PREFIX\)/bin/,g makefile

@@ -1,8 +1,8 @@
 # Contributor: Jakob Gruber <jakob.gruber@gmail.com>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
-pkgver=0.5.4
-pkgrel=2
+pkgver=0.5.7
+pkgrel=4
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/dwarftherapist/"
@@ -11,12 +11,8 @@ depends=('qt')
 makedepends=('mercurial')
 conflicts=('dwarftherapist-svn')
 replaces=('dwarftherapist-svn')
-source=('fix_file_path.diff' 
-        'v0.31.06.ini'
-        'game_data.ini')
-md5sums=('4df966a0e79937965286fe4609ba7e0f'
-         'e3db36520f9820592f72fc99eca94e86'
-         '87e3029685e1b700b3e7e7c7cae77ada')
+source=('fix_file_path.diff' 'v0.31.10.ini' 'v0.31.12.ini')
+md5sums=('fc0248cad4168107bb23ea0d2ad7859d' '15843528a396bb89f09f71759947bb9d' '1d26c84d42880fcee9e77be6b80dc473')
 
 _hgtrunk=https://dwarftherapist.googlecode.com/hg
 _hgmod=dwarftherapist
@@ -36,26 +32,25 @@ build() {
   rm -rf $srcdir/$_hgmod-build
   cp -r $srcdir/$_hgmod $srcdir/$_hgmod-build
   cd $srcdir/$_hgmod-build
-  hg checkout $pkgver || return 1
+  hg checkout $pkgver
 
   # Change stupid hardcoded path to slightly less stupid hardcoded path.
-  patch -Np1 < "$srcdir/fix_file_path.diff" || return 1
+  patch -Np1 < "$srcdir/fix_file_path.diff"
 
 
   # Build
-  qmake dwarftherapist.pro || return 1
-  make || return 1
+  qmake dwarftherapist.pro
+  make
 
   install -dm755 $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 
   install -Dm644 LICENSE.txt $pkgdir/usr/share/licenses/dwarftherapist/LICENSE
   install -Dm755 bin/release/DwarfTherapist $pkgdir/usr/bin/dwarftherapist
-  #install -Dm644 etc/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
+  install -Dm644 etc/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
   install -Dm644 etc/memory_layouts/linux/*.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 
-  # Support for 0.31.06 taken from http://code.google.com/p/dwarftherapist/issues/detail?id=249
-  install -Dm644 $srcdir/v0.31.06.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
-  install -Dm644 $srcdir/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
+  install -Dm644 $srcdir/v0.31.10.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
+  install -Dm644 $srcdir/v0.31.12.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 }
 
 # vim:set ts=2 sw=2 et:

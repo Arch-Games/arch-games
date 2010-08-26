@@ -13,20 +13,20 @@ makedepends=('asio' 'cmake')
 source=(http://www.springlobby.info/tarballs/${pkgname}-${pkgver}.tar.bz2 springlobby.desktop springlobby.png)
 
 build() {
-  cd $startdir/src/${pkgname}-$pkgver
+  cd $srcdir/${pkgname}-$pkgver
 
-  cp $startdir/src/${pkgname}-$pkgver/tools/test-susynclib.awk $startdir/src/${pkgname}-$pkgver/tools/test-susynclib.awk.bak || return 1
-  sed -e 's/\/usr\/bin\/awk/\/bin\/awk/g' $startdir/src/${pkgname}-$pkgver/tools/test-susynclib.awk.bak>$startdir/src/${pkgname}-$pkgver/tools/test-susynclib.awk
+  cp $srcdir/${pkgname}-$pkgver/tools/test-susynclib.awk $srcdir/${pkgname}-$pkgver/tools/test-susynclib.awk.bak || return 1
+  sed -e 's/\/usr\/bin\/awk/\/bin\/awk/g' $srcdir/${pkgname}-$pkgver/tools/test-susynclib.awk.bak>$srcdir/${pkgname}-$pkgver/tools/test-susynclib.awk
   cmake . \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	-DOPTION_SOUND=false || return 1
-  make && make DESTDIR=$startdir/pkg install || return 1
+  make && make DESTDIR=$pkgdir install || return 1
   
-  install -m755 -d $startdir/pkg/usr/share/applications
-  install -m644 $startdir/src/springlobby.desktop $startdir/pkg/usr/share/applications
+  install -m755 -d $pkgdir/usr/share/applications
+  install -m644 $srcdir/springlobby.desktop $pkgdir/usr/share/applications
 
-  install -m755 -d -p $startdir/pkg/usr/share/pixmaps
-  install -m644 $startdir/src/springlobby.png $startdir/pkg/usr/share/pixmaps
+  install -m755 -d -p $pkgdir/usr/share/pixmaps
+  install -m644 $srcdir/springlobby.png $pkgdir/usr/share/pixmaps
 }
 md5sums=('6f89baf43c5b211a36e03cdef3b959d1'
          '45f8b59d033931d02e734fe3bd7777dd'

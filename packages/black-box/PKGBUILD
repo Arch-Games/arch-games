@@ -14,8 +14,8 @@ url="http://user.cs.tu-berlin.de/~karlb/news/"
 md5sums=('f0cf19c54a3d2c34c221d67baf78add5')
 
 build() {
-        cd $startdir/src/$pkgname-$pkgver
+        cd $srcdir/$pkgname-$pkgver
         ./configure --prefix=/usr
         make || return 1
-        make prefix=$startdir/pkg/usr install
+        make prefix=$pkgdir/usr install
 }

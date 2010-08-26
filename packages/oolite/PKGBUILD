@@ -17,12 +17,12 @@ md5sums=('d2c36dc886919547543ee4baedfba4a4' '321538d43ea21a8dea637a720a8d3076' '
 
 build() {
 # setting up directories
-    mkdir -p $startdir/pkg/usr/bin
-    mkdir -p $startdir/pkg/usr/share/{$pkgname.app,applications,pixmaps}
+    mkdir -p $pkgdir/usr/bin
+    mkdir -p $pkgdir/usr/share/{$pkgname.app,applications,pixmaps}
 
 
 
-    cd $startdir/src/$pkgname-$pkgver-src
+    cd $srcdir/$pkgname-$pkgver-src
 
 # edit makefiles to compile correctly
     cp GNUmakefile.postamble GNUmakefile.postamble.org
@@ -31,19 +31,19 @@ build() {
 # compile
     source /opt/GNUstep/System/Library/Makefiles/GNUstep.sh
     make debug=no strip=yes || return 1
-    cp -r $pkgname.app/* $startdir/pkg/usr/share/$pkgname.app/
+    cp -r $pkgname.app/* $pkgdir/usr/share/$pkgname.app/
 
 
 # copy short instructions
-    install -D -m 644 $startdir/src/playing.txt $startdir/pkg/usr/share/oolite.app/playing.txt
+    install -D -m 644 $srcdir/playing.txt $pkgdir/usr/share/oolite.app/playing.txt
 
 #install shellscript and icon
-    install -D -m755 $startdir/src/oolite $startdir/pkg/usr/bin/oolite
-    install -D -m644 $startdir/src/$pkgname-$pkgver-src/FreeDesktop/oolite-icon.png $startdir/pkg/usr/share/pixmaps/oolite.png
+    install -D -m755 $srcdir/oolite $pkgdir/usr/bin/oolite
+    install -D -m644 $srcdir/$pkgname-$pkgver-src/FreeDesktop/oolite-icon.png $pkgdir/usr/share/pixmaps/oolite.png
 
 # correct and copy .desktop file
     cd FreeDesktop
     cp oolite.desktop oolite.desktop.org
     sed 's;Icon=oolite-icon.png;Icon=oolite;' <oolite.desktop.org >oolite.desktop
-    install -D -m644 $startdir/src/$pkgname-$pkgver-src/FreeDesktop/oolite.desktop $startdir/pkg/usr/share/applications/oolite.desktop
+    install -D -m644 $srcdir/$pkgname-$pkgver-src/FreeDesktop/oolite.desktop $pkgdir/usr/share/applications/oolite.desktop
 }

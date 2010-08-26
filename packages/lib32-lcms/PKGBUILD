@@ -13,6 +13,6 @@ source=(ftp://ftp.archlinux.org/extra/os/i686/${pkgname32}-${pkgver}-${pkgrel32}
 md5sums=('912e28e7af7d980cb88ba87a394ff2dd')
 
 build() {
-  mkdir -p $startdir/pkg/opt/lib32/usr/
-  cp -rPf $startdir/src/usr/lib $startdir/pkg/opt/lib32/usr/lib
+  mkdir -p $pkgdir/opt/lib32/usr/
+  cp -rPf $srcdir/usr/lib $pkgdir/opt/lib32/usr/lib
 }

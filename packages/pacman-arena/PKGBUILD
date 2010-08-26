@@ -15,24 +15,24 @@ source=(http://downloads.sourceforge.net/sourceforge/pacmanarena/pacman-arena-$p
 md5sums=(4ff7e55810838fd81f966b76340b0103 876b7bf02bbe26aab47c5aeee26b2be6)
 
 build() {
-cd $startdir/src
+cd $srcdir
 mv sfx pacman/
 mv gfx pacman/
-cd $startdir/src/pacman
+cd $srcdir/pacman
 
 sed -i -e 's%@datadir@/pacman%@datadir@/pacman-arena%g' Makefile.in
 
 ./configure --prefix=/usr
-mkdir -p $startdir/pkg/usr/share/pacman-arena
-mkdir -p $startdir/pkg/usr/bin
+mkdir -p $pkgdir/usr/share/pacman-arena
+mkdir -p $pkgdir/usr/bin
 make || return 1
 
-mv gfx $startdir/pkg/usr/share/pacman-arena
-mv sfx $startdir/pkg/usr/share/pacman-arena
-mv pacman $startdir/pkg/usr/bin/pacman-arena
+mv gfx $pkgdir/usr/share/pacman-arena
+mv sfx $pkgdir/usr/share/pacman-arena
+mv pacman $pkgdir/usr/bin/pacman-arena
 
-mkdir -p $startdir/pkg/usr/share/applications
-cd $startdir/pkg/usr/share/applications
+mkdir -p $pkgdir/usr/share/applications
+cd $pkgdir/usr/share/applications
 echo "[Desktop Entry]
 Encoding=UTF-8
 Name=Pacman Arena

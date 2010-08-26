@@ -11,9 +11,9 @@ source=("http://triptico.com/download/splumber-1.1.0-rc2.tar.gz")
 md5sums=('9c4059f70b16c0b3a4987eabc88bdf3c') 
 
 build() { 
-	  cd $startdir/src/$pkgname-1.1.0-rc2 
+	  cd $srcdir/$pkgname-1.1.0-rc2 
 	    ./config.sh --prefix=/usr 
 	      make || return 1 
-	        install -d $startdir/pkg/usr/{bin,share} 
-		  make DESTDIR=$startdir/pkg install 
+	        install -d $pkgdir/usr/{bin,share} 
+		  make DESTDIR=$pkgdir install 
 	  }

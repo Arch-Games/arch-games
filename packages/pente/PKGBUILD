@@ -14,7 +14,7 @@ source=(http://www.igoweb.org/~wms/comp/pente/$pkgname-$pkgver.tar.gz)
 md5sums=('af1d851f1e2e0b41c52ea2772fbd5cc0')
 
 build() {
-  cd $startdir/src/$pkgname-$pkgver
+  cd $srcdir/$pkgname-$pkgver
 
   ./configure --prefix=/usr || return 1
   make || return 1

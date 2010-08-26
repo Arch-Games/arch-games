@@ -1,8 +1,12 @@
 post_upgrade() {
-	echo ">>> 0.5 breaks save and bones compatibility with 0.4"
-	echo ">>> You may need to manually delete them from /usr/share/stone-soup/save/"
-}
 
-op=$1
-shift
-$op $*
+    [[ $(vercmp $2 0.7.1) -ge 0 ]] && return
+
+    echo "---------------------------------------------------------------------
+    stone-soup saves have moved to ~/.stone-soup.
+    if you want to keep your old saves, move /var/games/stone-soup to
+    ~/.stone-soup with your user as owner.
+
+    stone-soup now also includes the tiles version (crawl-tiles)
+---------------------------------------------------------------------"
+}

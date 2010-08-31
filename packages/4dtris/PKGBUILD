@@ -1,21 +1,27 @@
 # Contributor: Dragonlord <archlinux[at]dragonlord[.]cz>
 
 pkgname=4dtris
-pkgver=0.2.2
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="A tetris game extended to 4 dimensions."
 arch=('i686' 'x86_64')
 url="http://illusions.hu/4dtris/index.html"
 license=('GPL')
 depends=('freeglut')
 install=$pkgname.install
-source=(http://dtris.sourceforge.net/downloads/4DTRIS.$pkgver.src.tar)
-md5sums=('95f14cbc0b55a15393685c4b74faa36c')
+source=(http://launchpad.net/$pkgname/0.3/$pkgver/+download/$pkgname-$pkgver-src.tar.gz)
+md5sums=('3f0de47d98e6135e056d4a3af70e04c6')
 
 build() {
-  cd "$srcdir"
+  cd ${srcdir}/$pkgname-$pkgver
 
-  make -f Makefile_linux || return 1
-  install -D -m755 "$srcdir/4DTRIS" \
-    "$pkgdir/usr/bin/4dtris" || return 1
+  ./configure --prefix=/usr
+  make
 }
+
+package() {
+  cd ${srcdir}/$pkgname-$pkgver
+
+  make DESTDIR=${pkgdir} install
+}
+

@@ -2,18 +2,18 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=openlierox
-pkgver=0.57_rc1
+pkgver=0.58_rc3
 pkgrel=1
 pkgdesc="A real-time excessive Worms-clone"
 arch=('i686' 'x86_64')
 url="http://www.openlierox.net/"
 license=('LGPL')
-depends=('gcc-libs' 'sdl_image' 'sdl_mixer' 'gd' 'hawknl' 'libxml2' 'libzip')
+depends=('gcc-libs' 'sdl_image' 'sdl_mixer' 'gd' 'hawknl' 'libxml2' 'libzip' 'curl')
 optdepends=('bash: for scripts support'
             'python: for scripts support')
 conflicts=('openlierox-beta' 'openlierox-svn')
 source=(http://downloads.sourceforge.net/$pkgname/OpenLieroX_$pkgver.src.tar.bz2)
-md5sums=('2c31eee74f21f8d2907d14e31a7617d3')
+md5sums=('c4f7057d8f210e30bdef3cfdd75d613b')
 
 build() {
   cd "$srcdir"/OpenLieroX

@@ -13,7 +13,7 @@ md5sums=('e3fa024f57d4f88786e6cfa817c5a0ea'
          'e75381f677b5d2ae331d0e4e742ee21a'
          'dbac9cf5bfb63463bcb2b5ea09b00586'
          '9f9b8d4033fd1b2c7ef33c5e04207abb')
-if [ $CARCH == "x86_64" ]; then
+if [ "$CARCH" == "x86_64" ]; then
   _arch="x64"
   md5sums[0]='1ff1bad524080fa44b4c8b668ce2882a'
 fi

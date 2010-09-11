@@ -20,10 +20,10 @@ source=(http://downloads.sourceforge.net/desmume/$pkgname-$pkgver.tar.gz)
 md5sums=('982aef3a696c6a81decd2ee35bf7899a')
 
 build() {
-    cd $startdir/src/$pkgname-$pkgver
+    cd $srcdir/$pkgname-$pkgver
 
     ./configure --prefix=/usr
 
     make || return 1
-    make prefix=$startdir/pkg/usr install
+    make prefix=$pkgdir/usr install
 }

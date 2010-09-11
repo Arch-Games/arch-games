@@ -1,6 +1,6 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 pkgname=shedskin
-pkgver=0.4
+pkgver=0.5
 pkgrel=1
 pkgdesc="A Python to C++ compiler"
 arch=('x86_64' 'i686')
@@ -27,4 +27,4 @@ build() {
   install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 # vim:set ts=2 sw=2 et:
-md5sums=('bd41092129b30ae23302b63a9910d884')
+md5sums=('1f2bf6903e35d3bb9068a8ea5c4d3d50')

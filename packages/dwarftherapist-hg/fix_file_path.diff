@@ -9,14 +9,25 @@
      m_data_settings = new QSettings(filename, QSettings::IniFormat);
  
      QStringList labor_names;
---- dwarftherapist/src/dfinstance.cpp	2010-06-13 09:54:30.536342803 +0200
-+++ dwarftherapist-build/src/dfinstance.cpp	2010-06-13 10:43:27.405636838 +0200
+--- dwarftherapist/src/dfinstance.cpp	2010-06-28 07:51:20.425550489 +0200
++++ dwarftherapist-build/src/dfinstance.cpp	2010-06-28 07:53:39.235120590 +0200
 @@ -72,7 +72,7 @@
  #endif
  #endif
-     QDir::addSearchPath("memory_layouts", working_dir.absoluteFilePath(
--        QString("etc/memory_layouts/%1").arg(subdir)));
-+        QString("/usr/share/dwarftherapist/memory_layouts/%1").arg(subdir)));
+ #endif
+-    search_paths << QString("etc/memory_layouts/%1").arg(subdir);
++    search_paths << QString("/usr/share/dwarftherapist/memory_layouts/%1").arg(subdir);
  
      TRACE << "Searching for MemoryLayout ini files in the following directories";
-     foreach(QString path, QDir::searchPaths("memory_layouts")) {
+     foreach(QString path, search_paths) {
+--- dwarftherapist/src/dwarftherapist.cpp	2010-07-31 22:04:58.291687394 +0200
++++ dwarftherapist-build/src/dwarftherapist.cpp	2010-07-31 22:06:35.031276564 +0200
+@@ -91,7 +91,7 @@
+ 
+     //setup logging
+     m_log_mgr = new LogManager(this);
+-    TruncatingFileLogger *log = m_log_mgr->add_logger("log/run.log");
++    TruncatingFileLogger *log = m_log_mgr->add_logger(QDir::tempPath() + "/dwarftherapist.log");
+     if (log) {
+         LogAppender *app = m_log_mgr->add_appender("core", log, LL_TRACE);
+         if (app) {

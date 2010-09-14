@@ -1,20 +1,19 @@
 pkgname="archgames-mirrorlist"
-pkgver=20100121
+pkgver=20100913
 pkgrel=1
 pkgdesc="Arch Games mirror list for use by pacman"
-arch=('i686' 'x86_64')
+arch=(any)
 url="http://archlinux-gaming.org"
 license=('GPL')
 backup=(etc/pacman.d/archgames-mirrorlist)
 source=('mirrorlist')
 optdepends=('python: for rankmirror script usage')
 
-md5sums=('ccf904527efff0507c041284b1cf90ab')
+md5sums=('83d0deb65e3db5de03f8d8656bdeda19')
 
 build() {
   cd "$srcdir"
   install -D -m644 "$srcdir/mirrorlist" \
     "$pkgdir/etc/pacman.d/archgames-mirrorlist"
-  sed -i -e "s/@arch@/$CARCH/g" "$pkgdir/etc/pacman.d/archgames-mirrorlist"
 }
 

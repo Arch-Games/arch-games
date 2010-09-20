@@ -9,7 +9,7 @@ arch=(i686 x86_64)
 url="http://www.bay12games.com/dwarves/"
 install="$pkgname.install"
 license=('custom:dwarffortress')
-depends=(gtk2 mesa sdl_image libsndfile openal)
+depends=(gtk2 mesa sdl_image libsndfile openal sdl_ttf)
 if [[ $CARCH == 'x86_64' ]]; then
   depends=(lib32-gtk2 lib32-mesa lib32-sdl_image lib32-libsndfile lib32-openal
   lib32-libxdamage lib32-ncurses lib32-sdl_ttf)

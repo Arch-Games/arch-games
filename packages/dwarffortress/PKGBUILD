@@ -12,7 +12,7 @@ license=('custom:dwarffortress')
 depends=(gtk2 mesa sdl_image libsndfile openal)
 if [[ $CARCH == 'x86_64' ]]; then
   depends=(lib32-gtk2 lib32-mesa lib32-sdl_image lib32-libsndfile lib32-openal
-  lib32-libxdamage lib32-ncurses)
+  lib32-libxdamage lib32-ncurses lib32-sdl_ttf)
   optdepends=('lib32-nvidia-utils: If you have nvidia graphics'
               'lib32-catalyst-utils: If you have ATI graphics')
 fi

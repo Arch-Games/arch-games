@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=OpenLieroX
-GenericName=OpenLieroX
-Comment=Worms-like game
-Icon=/usr/share/OpenLieroX/data/icon.png
-Exec=openlierox
-Categories=Game;

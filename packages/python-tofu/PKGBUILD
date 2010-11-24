@@ -5,9 +5,9 @@ pkgver=0.5
 pkgrel=1
 pkgdesc="A high-level network game engine"
 url="http://home.gna.org/oomadness/en/soya"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('GPL')
-depends=('python' 'twisted')
+depends=('python2' 'twisted')
 source=(http://download.gna.org/soya/Tofu-$pkgver.tar.bz2)
 md5sums=('e38dfcc74b30adf62f05755b4255fa57')
 
@@ -15,8 +15,8 @@ build() {
   
   #Build and install the package
   cd $srcdir/Tofu-$pkgver
-  python setup.py build || return 1
-  python setup.py install --root=$pkgdir
+  python2 setup.py build || return 1
+  python2 setup.py install --root=$pkgdir
 
 } 
 

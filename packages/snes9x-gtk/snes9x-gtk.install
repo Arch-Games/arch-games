@@ -1,8 +1,0 @@
-post_install() {
-  echo "IMPORTANT NOTICE: The structure of savestates (also known" 
-  echo "as snapshots / freeze files) is incompatible with older"
-  echo "versions! Snes9x 1.52 cannot read the savestates created"
-  echo "by 1.51 or older."                                      
-  echo ""
-  echo "Make sure you backup your states!!"
-}

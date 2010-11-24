@@ -15,7 +15,7 @@ md5sums=('0634240c8dda338ae2a3ad81514ed2b5' 'cadf9af95d1f6f8da6b17f43e3f01633'
 	 'f25aa552261b40ff284e1eb27857951b')
 
 build() {
-  cd ${startdir}/src/${pkgname}-${pkgver}
+  cd $srcdir/${pkgname}-${pkgver}
 
   sed -i 's|graphics/NewMediumNormal.ttf|/usr/share/fonts/TTF/Vera.ttf|' atris.c
 
@@ -23,13 +23,13 @@ build() {
   ./configure --prefix=/usr
 
   sed -i 's|target=\$(prefix)|target=\$(DESTDIR)\$(prefix)|' Makefile
-  make || return 1
-  make DESTDIR=${startdir}/pkg install
+  make 
+  make DESTDIR=$pkgdir install
 
-  install -Dm644 ${startdir}/src/atris.desktop \
-    ${startdir}/pkg/usr/share/applications/atris.desktop
+  install -Dm644 $srcdir/atris.desktop \
+    $pkgdir/usr/share/applications/atris.desktop
   
-  install -Dm644 ${startdir}/src/atris.png ${startdir}/pkg/usr/share/pixmaps/atris.png
+  install -Dm644 $srcdirc/atris.png $pkgdir/usr/share/pixmaps/atris.png
 
-  rm ${startdir}/pkg/usr/share/atris/{graphics,styles}/Makefile{,.in} 
+  rm $pkgdir/usr/share/atris/{graphics,styles}/Makefile{,.in} 
 }

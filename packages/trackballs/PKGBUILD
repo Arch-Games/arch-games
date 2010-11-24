@@ -20,7 +20,7 @@ build() {
   patch -p1 < ../trackballs.patch
   ./configure --prefix=/usr --with-sdl-prefix=/usr --disable-sdltest --with-highscores="~"
   make || return 1
-  make DESTDIR=${startdir}/pkg install
+  make DESTDIR=$pkgdir install
   install -m644 ${srcdir}/*.map ${pkgdir}/usr/share/trackballs/levels
   install -m644 ${srcdir}/*.scm ${pkgdir}/usr/share/trackballs/levels
   install -m644 ${srcdir}/*.jpg ${pkgdir}/usr/share/trackballs/levels

@@ -40,8 +40,8 @@ build() {
 
   mkdir -p $pkgdir/usr/share/{applications,pixmaps}
   install -m644 $srcdir/bubnbros.desktop \
-    ${startdir}/pkg/usr/share/applications/
+    $pkgdir/usr/share/applications/
   install -m644 $srcdir/$pkgname-$pkgver/http2/data/bob.png \
-    ${startdir}/pkg/usr/share/pixmaps/bubnbros.png
+    $pkgdir/usr/share/pixmaps/bubnbros.png
 }
 

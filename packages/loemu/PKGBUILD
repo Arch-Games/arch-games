@@ -16,19 +16,19 @@ md5sums=('c2ac4dc230511d48761c0781f50aa1a1'
    
 build() {
   # Make some fixes to the paths
-  cd ${startdir}/src/${pkgname}-${pkgver}/${pkgname}
+  cd $srcdir/${pkgname}-${pkgver}/${pkgname}
   sed 's|share/games|share|g' -i Preferences.py
   sed 's|share/games|share|g' -i Loemu.py
   sed 's|share/games|share|g' -i Config.py
-  cd ${startdir}/src/${pkgname}-${pkgver}/config
+  cd $srcdir/${pkgname}-${pkgver}/config
   sed 's|mamepm|sdlmame|' -i sdlmame.conf
-  cd ${startdir}/src/${pkgname}-${pkgver}
+  cd $srcdir/${pkgname}-${pkgver}
   sed 's|share/games|share|g' -i setup.py
 
   # Install the application
-  python setup.py install --root=${startdir}/pkg/ --prefix=/usr
+  python setup.py install --root=$pkgdir --prefix=/usr
 
   # Install the desktop entry
-  install -Dm644 ${startdir}/src/${pkgname}.desktop ${startdir}/pkg/usr/share/applications/${pkgname}.desktop
-  install -Dm644 images/penguin-revolt-128.png ${startdir}/pkg/usr/share/pixmaps/${pkgname}.png
+  install -Dm644 $srcdir/${pkgname}.desktop $pkgdir/usr/share/applications/${pkgname}.desktop
+  install -Dm644 images/penguin-revolt-128.png $pkgdir/usr/share/pixmaps/${pkgname}.png
 }

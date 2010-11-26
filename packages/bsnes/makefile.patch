@@ -1,0 +1,16 @@
+diff -aur bsnes/Makefile bsnes-new//Makefile
+--- bsnes/Makefile	2010-10-23 04:27:13.000000000 +0200
++++ bsnes-new//Makefile	2010-11-25 23:11:55.329851242 +0100
+@@ -64,9 +64,9 @@
+ 	install -D -m 755 out/bsnes $(DESTDIR)$(prefix)/bin/bsnes
+ 	install -D -m 644 data/bsnes.png $(DESTDIR)$(prefix)/share/pixmaps/bsnes.png
+ 	install -D -m 644 data/bsnes.desktop $(DESTDIR)$(prefix)/share/applications/bsnes.desktop
+-	test -d ~/.bsnes || mkdir ~/.bsnes
+-	cp data/cheats.xml ~/.bsnes/cheats.xml
+-	chmod 777 ~/.bsnes ~/.bsnes/cheats.xml
++	# test -d ~/.bsnes || mkdir ~/.bsnes
++	#cp data/cheats.xml ~/.bsnes/cheats.xml
++	#chmod 777 ~/.bsnes ~/.bsnes/cheats.xml
+ endif
+ 
+ uninstall:

@@ -2,7 +2,7 @@
 
 pkgname=csmash
 pkgver=0.6.6
-pkgrel=2
+pkgrel=3
 pkgdesc="a 3D tabletennis game."
 url="http://cannonsmash.sourceforge.net/"
 arch=('i686' 'x86_64')

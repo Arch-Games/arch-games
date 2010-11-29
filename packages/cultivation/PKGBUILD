@@ -3,7 +3,7 @@
 
 pkgname=cultivation
 pkgver=8
-pkgrel=3
+pkgrel=4
 pkgdesc="A social simulation game"
 arch=('i686' 'x86_64')
 url="http://cultivation.sourceforge.net/"

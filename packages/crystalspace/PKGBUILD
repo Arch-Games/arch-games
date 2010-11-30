@@ -2,8 +2,8 @@
 # Maintainer: Martin Sandsmark <sandsmark@iskrembilen.com>
 
 pkgname=crystalspace
-pkgver=1.2.1
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc="Free and portable 3D Game Development Kit written in C++"
 url="http://www.crystalspace3d.org"
 license=('LGPL')
@@ -19,3 +19,4 @@ build() {
   jam || return 1
   jam DESTDIR=$pkgdir/ install
 }
+md5sums=('b4cbb89b389a2c8401764e13f03650dc')

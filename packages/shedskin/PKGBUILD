@@ -1,30 +1,41 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 pkgname=shedskin
-pkgver=0.5
-pkgrel=1
+pkgver=0.6
+pkgrel=3
 pkgdesc="A Python to C++ compiler"
-arch=('x86_64' 'i686')
+arch=('any')
 url="http://code.google.com/p/shedskin/"
 license=('GPL2')
-depends=('pcre' 'gc' 'python')
+depends=('pcre' 'gc' 'python2')
+makedepends=('patch')
 conflicts=('shedskin-svn')
-source=(http://shedskin.googlecode.com/files/shedskin-$pkgver.tgz)
+source=("http://shedskin.googlecode.com/files/shedskin-$pkgver.tgz"
+        "python27.patch")
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/$pkgname"
 
+  # Python 2 fix
+  echo "#!/usr/bin/python2" > shedskin
+  echo "import shedskin" >> shedskin
+  echo "shedskin.main()" >> shedskin
+
   # Install the wrapperscript
   mkdir -p "$pkgdir/usr/bin"
-  cd "$srcdir/$pkgname-$pkgver/scripts"
-  install -D -m755 shedskin "$pkgdir/usr/bin/shedskin"
-  
-  # Install using setup.py
+  install -D -m755 shedskin "$pkgdir/usr/bin/shedskin" || return 1
+
   cd "$srcdir/$pkgname-$pkgver"
-  python setup.py install --prefix="$pkgdir/usr"
+
+  # Patch
+  patch -p0 < $srcdir/python27.patch || return 1
+
+  # Install using setup.py
+  python2 setup.py install --prefix="$pkgdir/usr" || return 1
 
   # Install the license
   cd "$srcdir/$pkgname-$pkgver"
   install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 # vim:set ts=2 sw=2 et:
-md5sums=('1f2bf6903e35d3bb9068a8ea5c4d3d50')
+md5sums=('f16556696d10e84cb0442512f71bd2c5'
+         'fbda0b3ebaae7446d7420e9d9bc8007f')

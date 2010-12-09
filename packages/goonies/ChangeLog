@@ -1,9 +1,0 @@
-2009-07-11  Laurent Carlier <lordheavym@gmail.com>
-
-	* Remove debugging messages and file goonies.dbg in home dir
-
-2009-06-15  Laurent Carlier <lordheavym@gmail.com>
-
-	* Update to Goonies version 1.4.1528
-	* Remove unneeded sdl_sound dependency
-

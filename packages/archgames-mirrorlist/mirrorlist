@@ -2,6 +2,5 @@
 # Arch Games repository mirrorlist
 #
 
-Server = http://pseudoform.org/arch-games/games/$arch #(Nürnberg, Germany. Maintainer: svenstaro)
 Server = http://repo.exigen.org/arch/games/$arch #(Düsseldorf, Germany. Maintainer: s4msung)
 Server = ftp://mirror.selfnet.de/arch-games/$arch #(Stuttgart, Germany. Maintainer: hrist)

@@ -1,5 +1,5 @@
 pkgname="archgames-mirrorlist"
-pkgver=20100913
+pkgver=20110212
 pkgrel=1
 pkgdesc="Arch Games mirror list for use by pacman"
 arch=(any)
@@ -9,11 +9,10 @@ backup=(etc/pacman.d/archgames-mirrorlist)
 source=('mirrorlist')
 optdepends=('python: for rankmirror script usage')
 
-md5sums=('83d0deb65e3db5de03f8d8656bdeda19')
+md5sums=('59da0b8cef09ee3a887402b7369e3e8a')
 
 build() {
   cd "$srcdir"
   install -D -m644 "$srcdir/mirrorlist" \
     "$pkgdir/etc/pacman.d/archgames-mirrorlist"
 }
-
